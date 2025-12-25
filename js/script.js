@@ -908,11 +908,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const quantityInput = document.querySelector(`.quantity-input[data-id="${id}"]`);
             const quantity = parseInt(quantityInput.value) || 1;
             
-            if (!window.currentUser) {
-                showNotification('Пожалуйста, войдите в систему, чтобы добавлять товары в корзину', 'error');
-                document.getElementById('login-modal').classList.add('active');
-                return;
-            }
+           
             
             // Добавляем товар в корзину несколько раз в зависимости от количества
             for (let i = 0; i < quantity; i++) {
@@ -974,11 +970,7 @@ document.addEventListener('DOMContentLoaded', function() {
         quickOrderBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
-            if (!window.currentUser) {
-                showNotification('Пожалуйста, войдите в систему для оформления заказа', 'error');
-                document.getElementById('login-modal').classList.add('active');
-                return;
-            }
+            
             
             // Закрываем все модалки
             document.querySelectorAll('.modal').forEach(modal => {
@@ -1557,11 +1549,7 @@ document.addEventListener('DOMContentLoaded', function() {
         addReviewBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
-            if (!window.currentUser) {
-                showNotification('Пожалуйста, войдите в систему, чтобы оставить отзыв', 'error');
-                document.getElementById('login-modal').classList.add('active');
-                return;
-            }
+           
             
             // Закрываем все модалки
             document.querySelectorAll('.modal').forEach(modal => {
@@ -5946,4 +5934,5 @@ ${itemsList}
         }
     }
 });
+
 
