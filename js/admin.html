@@ -1,0 +1,922 @@
+                                <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хычинная | Админ-панель</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container header__container">
+            <!-- Логотип -->
+            <a href="index.html" class="logo">
+                <img src="logo/logo.png" alt="Логотип Хычинной" class="logo__img">
+                <span class="logo__text">ХЫЧИННАЯ</span>
+            </a>
+            
+            <!-- Навигация для ПК -->
+            <nav class="nav desktop-nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="index.html" class="nav__link">Главная</a></li>
+                    <li class="nav__item"><a href="menu.html" class="nav__link">Меню</a></li>
+                    <li class="nav__item"><a href="about.html" class="nav__link">О нас</a></li>
+                    <li class="nav__item"><a href="delivery.html" class="nav__link">Доставка</a></li>
+                    <li class="nav__item"><a href="contacts.html" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Иконки пользователя и корзины -->
+            <div class="header__actions">
+                <a href="#" class="header__icon" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="#" class="header__icon" id="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <!-- Бургер-меню для мобильных -->
+                <button class="burger" id="burger-btn" aria-label="Открыть меню">
+                    <span class="burger__line"></span>
+                    <span class="burger__line"></span>
+                    <span class="burger__line"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Вертикальное меню для мобильных -->
+        <nav class="vertical-nav" id="vertical-nav">
+            <div class="vertical-nav__header">
+                <span class="vertical-nav__title">Меню</span>
+                <button class="vertical-nav__close" id="close-menu" aria-label="Закрыть меню">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="vertical-nav__list">
+                <li class="vertical-nav__item"><a href="index.html" class="vertical-nav__link"><i class="fas fa-home"></i> Главная</a></li>
+                <li class="vertical-nav__item"><a href="menu.html" class="vertical-nav__link"><i class="fas fa-utensils"></i> Меню</a></li>
+                <li class="vertical-nav__item"><a href="about.html" class="vertical-nav__link"><i class="fas fa-info-circle"></i> О нас</a></li>
+                <li class="vertical-nav__item"><a href="delivery.html" class="vertical-nav__link"><i class="fas fa-truck"></i> Доставка</a></li>
+                <li class="vertical-nav__item"><a href="contacts.html" class="vertical-nav__link"><i class="fas fa-address-book"></i> Контакты</a></li>
+                
+                <!-- Блок для авторизованного пользователя -->
+                <div class="vertical-nav__auth" id="auth-block">
+                    <li class="vertical-nav__item"><a href="profile.html" class="vertical-nav__link"><i class="fas fa-user-circle"></i> Личный кабинет</a></li>
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Выход</a></li>
+                </div>
+                
+                <!-- Блок для гостя -->
+                <div class="vertical-nav__guest" id="guest-block">
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="login-btn"><i class="fas fa-sign-in-alt"></i> Вход</a></li>
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="register-btn"><i class="fas fa-user-plus"></i> Регистрация</a></li>
+                </div>
+            </ul>
+        </nav>
+        
+        <!-- Оверлей для меню -->
+        <div class="overlay" id="overlay"></div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main">
+        <!-- Проверка прав администратора -->
+        <div id="admin-check" style="display: none;">
+            <!-- Здесь будет проверка через JavaScript -->
+        </div>
+        
+        <!-- Заголовок страницы -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-header__title">Административная панель</h1>
+                <p class="page-header__subtitle">Управление рестораном и заказами</p>
+            </div>
+        </section>
+
+        <!-- Быстрая статистика -->
+        <section class="admin-stats">
+            <div class="container">
+                <div class="stats__grid">
+                    <div class="stat-card">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Новые заказы</h3>
+                            <div class="stat-card__value" id="new-orders-count">0</div>
+                            <div class="stat-card__change">+2 за сегодня</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Всего клиентов</h3>
+                            <div class="stat-card__value" id="total-customers">0</div>
+                            <div class="stat-card__change">+5 за неделю</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-ruble-sign"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Выручка</h3>
+                            <div class="stat-card__value" id="total-revenue">0 ₽</div>
+                            <div class="stat-card__change">+15% за месяц</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Средний рейтинг</h3>
+                            <div class="stat-card__value" id="avg-rating">0.0</div>
+                            <div class="stat-card__change">4.8 из 5</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Основной контент админ-панели -->
+        <section class="admin-content">
+            <div class="container">
+                <div class="admin__grid">
+                    <!-- Боковая панель -->
+                    <aside class="admin-sidebar">
+                        <nav class="admin-nav">
+                            <ul class="admin-nav__list">
+                                <li class="admin-nav__item">
+                                    <a href="#orders" class="admin-nav__link active" data-tab="orders">
+                                        <i class="fas fa-clipboard-list"></i>
+                                        <span>Управление заказами</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#menu-management" class="admin-nav__link" data-tab="menu">
+                                        <i class="fas fa-utensils"></i>
+                                        <span>Управление меню</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#categories" class="admin-nav__link" data-tab="categories">
+                                        <i class="fas fa-tags"></i>
+                                        <span>Категории блюд</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#users" class="admin-nav__link" data-tab="users">
+                                        <i class="fas fa-users-cog"></i>
+                                        <span>Пользователи</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#reviews" class="admin-nav__link" data-tab="reviews">
+                                        <i class="fas fa-star"></i>
+                                        <span>Отзывы</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#analytics" class="admin-nav__link" data-tab="analytics">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Аналитика</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#settings" class="admin-nav__link" data-tab="settings">
+                                        <i class="fas fa-cogs"></i>
+                                        <span>Настройки</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        
+                        <div class="admin-info">
+                            <h4>Администратор</h4>
+                            <p id="admin-name">Загрузка...</p>
+                            <p id="admin-last-login">Последний вход: Загрузка...</p>
+                        </div>
+                    </aside>
+                    
+                    <!-- Основная область -->
+                    <div class="admin-main">
+                        <!-- Вкладка: Управление заказами -->
+                        <div class="admin-tab active" id="orders-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Управление заказами</h2>
+                                <div class="tab-actions">
+                                    <select id="order-status-filter" class="form-input form-input--small">
+                                        <option value="all">Все статусы</option>
+                                        <option value="new">Новые</option>
+                                        <option value="accepted">Принятые</option>
+                                        <option value="cooking">Готовятся</option>
+                                        <option value="delivery">В доставке</option>
+                                        <option value="delivered">Доставленные</option>
+                                        <option value="cancelled">Отмененные</option>
+                                    </select>
+                                    <button class="btn btn--small" id="export-orders-btn">
+                                        <i class="fas fa-download"></i> Экспорт
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="table-container">
+                                <table id="orders-table" class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Клиент</th>
+                                            <th>Дата</th>
+                                            <th>Сумма</th>
+                                            <th>Статус</th>
+                                            <th>Действия</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="orders-table-body">
+                                        <!-- Данные загружаются динамически -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- Детали заказа -->
+                            <div class="order-details-panel" id="order-details-panel" style="display: none;">
+                                <div class="panel-header">
+                                    <h3>Детали заказа <span id="order-details-id">#0000</span></h3>
+                                    <button class="panel-close" id="close-order-details">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="panel-content">
+                                    <div class="order-info-section">
+                                        <h4>Информация о заказе</h4>
+                                        <div class="info-grid">
+                                            <div class="info-item">
+                                                <span class="info-label">Статус:</span>
+                                                <span class="info-value" id="detail-status">Новый</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">Дата:</span>
+                                                <span class="info-value" id="detail-date">01.01.2023 12:00</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">Сумма:</span>
+                                                <span class="info-value" id="detail-total">0 ₽</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">Оплата:</span>
+                                                <span class="info-value" id="detail-payment">Картой</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="order-items-section">
+                                        <h4>Состав заказа</h4>
+                                        <div class="items-list" id="order-items-list">
+                                            <!-- Товары загружаются динамически -->
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="order-customer-section">
+                                        <h4>Информация о клиенте</h4>
+                                        <div class="info-grid">
+                                            <div class="info-item">
+                                                <span class="info-label">Имя:</span>
+                                                <span class="info-value" id="detail-customer-name">Иван Иванов</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">Телефон:</span>
+                                                <span class="info-value" id="detail-customer-phone">+7 (999) 123-45-67</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">Адрес:</span>
+                                                <span class="info-value" id="detail-customer-address">ул. Кавказская, 15</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <span class="info-label">Комментарий:</span>
+                                                <span class="info-value" id="detail-comment">Без комментариев</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="order-actions-section">
+                                        <h4>Изменение статуса</h4>
+                                        <div class="status-actions">
+                                            <select id="change-order-status" class="form-input">
+                                                <option value="">Выберите статус</option>
+                                                <option value="accepted">Принять</option>
+                                                <option value="cooking">В приготовлении</option>
+                                                <option value="delivery">В доставке</option>
+                                                <option value="delivered">Доставлен</option>
+                                                <option value="cancelled">Отменить</option>
+                                            </select>
+                                            <button class="btn btn--primary" id="apply-status-change">Применить</button>
+                                        </div>
+                                        <div class="reject-reason" id="reject-reason-section" style="display: none;">
+                                            <label for="reject-reason" class="form-label">Причина отказа:</label>
+                                            <textarea id="reject-reason" class="form-input" rows="3" placeholder="Укажите причину отказа"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Управление меню -->
+                        <div class="admin-tab" id="menu-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Управление меню</h2>
+                                <div class="tab-actions">
+                                    <button class="btn btn--primary btn--small" id="add-dish-btn">
+                                        <i class="fas fa-plus"></i> Добавить блюдо
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="menu-management">
+                                <div class="menu-filters">
+                                    <select id="menu-category-filter" class="form-input form-input--small">
+                                        <option value="all">Все категории</option>
+                                        <!-- Категории загружаются динамически -->
+                                    </select>
+                                    <input type="text" id="menu-search" class="form-input form-input--small" placeholder="Поиск по названию...">
+                                </div>
+                                
+                                <div class="dishes-grid" id="dishes-grid">
+                                    <!-- Блюда загружаются динамически -->
+                                    <div class="empty-state">
+                                        <i class="fas fa-utensils"></i>
+                                        <h3>Меню пусто</h3>
+                                        <p>Добавьте первое блюдо в меню</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Форма добавления/редактирования блюда -->
+                            <div class="dish-form-panel" id="dish-form-panel" style="display: none;">
+                                <div class="panel-header">
+                                    <h3 id="dish-form-title">Добавление блюда</h3>
+                                    <button class="panel-close" id="close-dish-form">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                
+                                <form id="dish-form" class="panel-content">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="dish-name" class="form-label">Название блюда *</label>
+                                            <input type="text" id="dish-name" class="form-input" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="dish-category" class="form-label">Категория *</label>
+                                            <select id="dish-category" class="form-input" required>
+                                                <!-- Категории загружаются динамически -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="dish-price" class="form-label">Цена (₽) *</label>
+                                            <input type="number" id="dish-price" class="form-input" min="0" step="10" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="dish-weight" class="form-label">Вес (г)</label>
+                                            <input type="number" id="dish-weight" class="form-input" min="0">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="dish-description" class="form-label">Описание</label>
+                                        <textarea id="dish-description" class="form-input" rows="3"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="dish-ingredients" class="form-label">Ингредиенты</label>
+                                        <textarea id="dish-ingredients" class="form-input" rows="3" placeholder="Каждый ингредиент с новой строки"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="dish-image" class="form-label">Ссылка на изображение</label>
+                                        <input type="url" id="dish-image" class="form-input" placeholder="https://example.com/image.jpg">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Статус</label>
+                                        <div class="radio-group">
+                                            <label class="radio-label">
+                                                <input type="radio" name="dish-status" value="active" checked>
+                                                <span class="radio-custom"></span>
+                                                <span>Активно</span>
+                                            </label>
+                                            <label class="radio-label">
+                                                <input type="radio" name="dish-status" value="inactive">
+                                                <span class="radio-custom"></span>
+                                                <span>Не активно</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Теги</label>
+                                        <div class="tags-container" id="dish-tags-container">
+                                            <!-- Теги загружаются динамически -->
+                                        </div>
+                                        <input type="text" id="new-tag-input" class="form-input" placeholder="Добавить тег...">
+                                    </div>
+                                    
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn--primary" id="save-dish-btn">Сохранить блюдо</button>
+                                        <button type="button" class="btn btn--secondary" id="cancel-dish-btn">Отмена</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Категории блюд -->
+                        <div class="admin-tab" id="categories-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Управление категориями</h2>
+                                <div class="tab-actions">
+                                    <button class="btn btn--primary btn--small" id="add-category-btn">
+                                        <i class="fas fa-plus"></i> Добавить категорию
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="categories-management">
+                                <div class="categories-list" id="categories-list">
+                                    <!-- Категории загружаются динамически -->
+                                    <div class="empty-state">
+                                        <i class="fas fa-tags"></i>
+                                        <h3>Категории не добавлены</h3>
+                                        <p>Создайте первую категорию для меню</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Форма категории -->
+                                <div class="category-form" id="category-form" style="display: none;">
+                                    <h3 id="category-form-title">Новая категория</h3>
+                                    <form id="category-form-content">
+                                        <div class="form-group">
+                                            <label for="category-name" class="form-label">Название категории *</label>
+                                            <input type="text" id="category-name" class="form-input" required>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="category-description" class="form-label">Описание</label>
+                                            <textarea id="category-description" class="form-input" rows="3"></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="category-icon" class="form-label">Иконка (Font Awesome)</label>
+                                            <div class="icon-selector">
+                                                <input type="text" id="category-icon" class="form-input" placeholder="fas fa-utensils">
+                                                <div class="icon-preview">
+                                                    <i id="icon-preview" class="fas fa-utensils"></i>
+                                                </div>
+                                            </div>
+                                            <small class="form-hint">Используйте классы Font Awesome (например: fas fa-pizza-slice)</small>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label">Статус</label>
+                                            <div class="radio-group">
+                                                <label class="radio-label">
+                                                    <input type="radio" name="category-status" value="active" checked>
+                                                    <span class="radio-custom"></span>
+                                                    <span>Активна</span>
+                                                </label>
+                                                <label class="radio-label">
+                                                    <input type="radio" name="category-status" value="inactive">
+                                                    <span class="radio-custom"></span>
+                                                    <span>Не активна</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn--primary" id="save-category-btn">Сохранить категорию</button>
+                                            <button type="button" class="btn btn--secondary" id="cancel-category-btn">Отмена</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Пользователи -->
+                        <div class="admin-tab" id="users-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Управление пользователями</h2>
+                                <div class="tab-actions">
+                                    <select id="user-role-filter" class="form-input form-input--small">
+                                        <option value="all">Все роли</option>
+                                        <option value="user">Пользователи</option>
+                                        <option value="admin">Администраторы</option>
+                                    </select>
+                                    <button class="btn btn--small" id="add-user-btn">
+                                        <i class="fas fa-user-plus"></i> Добавить
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="table-container">
+                                <table id="users-table" class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>ФИО</th>
+                                            <th>Email</th>
+                                            <th>Роль</th>
+                                            <th>Дата регистрации</th>
+                                            <th>Статус</th>
+                                            <th>Действия</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-table-body">
+                                        <!-- Пользователи загружаются динамически -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Отзывы -->
+                        <div class="admin-tab" id="reviews-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Управление отзывами</h2>
+                                <div class="tab-actions">
+                                    <select id="review-rating-filter" class="form-input form-input--small">
+                                        <option value="all">Все оценки</option>
+                                        <option value="5">5 звёзд</option>
+                                        <option value="4">4 звезды</option>
+                                        <option value="3">3 звезды</option>
+                                        <option value="2">2 звезды</option>
+                                        <option value="1">1 звезда</option>
+                                    </select>
+                                    <select id="review-status-filter" class="form-input form-input--small">
+                                        <option value="all">Все статусы</option>
+                                        <option value="pending">На модерации</option>
+                                        <option value="approved">Одобрены</option>
+                                        <option value="rejected">Отклонены</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="reviews-list" id="admin-reviews-list">
+                                <!-- Отзывы загружаются динамически -->
+                                <div class="empty-state">
+                                    <i class="fas fa-star"></i>
+                                    <h3>Отзывов нет</h3>
+                                    <p>Пользователи ещё не оставили отзывы</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Аналитика -->
+                        <div class="admin-tab" id="analytics-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Аналитика и отчёты</h2>
+                                <div class="tab-actions">
+                                    <select id="analytics-period" class="form-input form-input--small">
+                                        <option value="today">Сегодня</option>
+                                        <option value="week">Неделя</option>
+                                        <option value="month" selected>Месяц</option>
+                                        <option value="year">Год</option>
+                                    </select>
+                                    <button class="btn btn--small" id="generate-report-btn">
+                                        <i class="fas fa-file-export"></i> Отчёт
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="analytics-dashboard">
+                                <div class="analytics-charts">
+                                    <div class="chart-container">
+                                        <h3>Продажи по дням</h3>
+                                        <canvas id="sales-chart" height="200"></canvas>
+                                    </div>
+                                    
+                                    <div class="chart-container">
+                                        <h3>Популярные категории</h3>
+                                        <canvas id="categories-chart" height="200"></canvas>
+                                    </div>
+                                </div>
+                                
+                                <div class="analytics-stats">
+                                    <div class="stat-box">
+                                        <h4>Ключевые показатели</h4>
+                                        <div class="key-metrics">
+                                            <div class="metric">
+                                                <span class="metric-label">Средний чек</span>
+                                                <span class="metric-value" id="avg-check">0 ₽</span>
+                                            </div>
+                                            <div class="metric">
+                                                <span class="metric-label">Конверсия</span>
+                                                <span class="metric-value" id="conversion-rate">0%</span>
+                                            </div>
+                                            <div class="metric">
+                                                <span class="metric-label">Повторные покупки</span>
+                                                <span class="metric-value" id="repeat-rate">0%</span>
+                                            </div>
+                                            <div class="metric">
+                                                <span class="metric-label">Время доставки</span>
+                                                <span class="metric-value" id="avg-delivery-time">0 мин</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="stat-box">
+                                        <h4>Топ-5 блюд</h4>
+                                        <div class="top-dishes" id="top-dishes-list">
+                                            <!-- Топ блюд загружается динамически -->
+                                            <div class="top-dish">
+                                                <span class="dish-name">Хычин с мясом</span>
+                                                <span class="dish-count">152 продажи</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Настройки -->
+                        <div class="admin-tab" id="settings-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Настройки системы</h2>
+                            </div>
+                            
+                            <div class="settings-sections">
+                                <div class="settings-section">
+                                    <h3 class="settings-section__title">Основные настройки</h3>
+                                    <form id="general-settings-form">
+                                        <div class="form-group">
+                                            <label for="restaurant-name" class="form-label">Название ресторана</label>
+                                            <input type="text" id="restaurant-name" class="form-input" value="Хычинная">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="restaurant-phone" class="form-label">Телефон ресторана</label>
+                                            <input type="tel" id="restaurant-phone" class="form-input" value="+7 (999) 123-45-67">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="restaurant-email" class="form-label">Email ресторана</label>
+                                            <input type="email" id="restaurant-email" class="form-input" value="info@khychinnaya.ru">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="working-hours" class="form-label">Часы работы</label>
+                                            <input type="text" id="working-hours" class="form-input" value="10:00 - 23:00">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="delivery-radius" class="form-label">Радиус доставки (км)</label>
+                                            <input type="number" id="delivery-radius" class="form-input" value="10" min="1" max="50">
+                                        </div>
+                                        
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn--primary">Сохранить настройки</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h3 class="settings-section__title">Настройки доставки</h3>
+                                    <div class="delivery-settings">
+                                        <div class="form-group">
+                                            <label for="min-order-amount" class="form-label">Минимальная сумма заказа (₽)</label>
+                                            <input type="number" id="min-order-amount" class="form-input" value="500" min="0">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="free-delivery-amount" class="form-label">Сумма для бесплатной доставки (₽)</label>
+                                            <input type="number" id="free-delivery-amount" class="form-input" value="1000" min="0">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="delivery-fee" class="form-label">Стоимость доставки (₽)</label>
+                                            <input type="number" id="delivery-fee" class="form-input" value="150" min="0">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="estimated-delivery-time" class="form-label">Примерное время доставки (мин)</label>
+                                            <input type="number" id="estimated-delivery-time" class="form-input" value="45" min="15" max="120">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h3 class="settings-section__title">Системные настройки</h3>
+                                    <div class="system-settings">
+                                        <div class="settings-option">
+                                            <div class="settings-option__info">
+                                                <h4>Технические работы</h4>
+                                                <p>Включить режим технических работ (сайт будет недоступен для пользователей)</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" id="maintenance-mode">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="settings-option">
+                                            <div class="settings-option__info">
+                                                <h4>Автоматическое подтверждение заказов</h4>
+                                                <p>Автоматически подтверждать новые заказы</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" id="auto-confirm-orders" checked>
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="settings-option">
+                                            <div class="settings-option__info">
+                                                <h4>Уведомления по SMS</h4>
+                                                <p>Отправлять SMS клиентам о статусе заказа</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" id="sms-notifications">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="settings-option">
+                                            <div class="settings-option__info">
+                                                <h4>Модерация отзывов</h4>
+                                                <p>Требовать модерацию отзывов перед публикацией</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" id="review-moderation" checked>
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="settings-section">
+                                    <h3 class="settings-section__title">Опасная зона</h3>
+                                    <div class="danger-zone">
+                                        <div class="danger-option">
+                                            <div class="danger-option__info">
+                                                <h4>Очистка данных</h4>
+                                                <p>Удалить все старые заказы (старше 1 года)</p>
+                                            </div>
+                                            <button class="btn btn--danger" id="cleanup-orders-btn">
+                                                Очистить
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="danger-option">
+                                            <div class="danger-option__info">
+                                                <h4>Сброс системы</h4>
+                                                <p>Вернуть все настройки к значениям по умолчанию</p>
+                                            </div>
+                                            <button class="btn btn--danger" id="reset-settings-btn">
+                                                Сбросить
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <a href="index.html" class="logo footer__logo">
+                        <img src="logo/logo.png" alt="Логотип Хычинной" class="logo__img">
+                        <span class="logo__text">ХЫЧИННАЯ</span>
+                    </a>
+                    <p class="footer__description">Традиционные кавказские хычины, приготовленные с душой по старинным рецептам.</p>
+                    <div class="footer__social">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Страницы</h3>
+                    <ul class="footer__list">
+                        <li><a href="index.html" class="footer__link">Главная</a></li>
+                        <li><a href="menu.html" class="footer__link">Меню</a></li>
+                        <li><a href="about.html" class="footer__link">О нас</a></li>
+                        <li><a href="delivery.html" class="footer__link">Доставка</a></li>
+                        <li><a href="contacts.html" class="footer__link">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Контакты</h3>
+                    <ul class="footer__list">
+                        <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Кавказская, 15</li>
+                        <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@khychinnaya.ru</li>
+                        <li><i class="fas fa-clock"></i> Ежедневно 10:00 - 23:00</li>
+                    </ul>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Подписка</h3>
+                    <p class="footer__text">Подпишитесь на рассылку, чтобы первыми узнавать о новинках и акциях.</p>
+                    <form class="footer__form" id="subscribe-form">
+                        <input type="email" class="footer__input" placeholder="Ваш email" required>
+                        <button type="submit" class="btn btn--small">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2023 Хычинная. Все права защищены.</p>
+                <a href="#" class="footer__policy">Политика конфиденциальности</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальные окна -->
+    <!-- Модалка удаления -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-confirm">&times;</button>
+            <h2 class="modal__title" id="confirm-title">Подтверждение действия</h2>
+            <div class="modal__text" id="confirm-text">Вы уверены, что хотите выполнить это действие?</div>
+            <div class="modal__actions">
+                <button class="btn btn--primary" id="confirm-action-btn">Подтвердить</button>
+                <button class="btn btn--secondary" id="cancel-action-btn">Отмена</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модалка уведомления -->
+    <div class="modal" id="notification-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-notification">&times;</button>
+            <h2 class="modal__title" id="notification-title">Уведомление</h2>
+            <div class="modal__text" id="notification-text">Операция выполнена успешно</div>
+            <div class="modal__actions">
+                <button class="btn btn--primary" id="close-notification-btn">ОК</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модалка добавления пользователя -->
+    <div class="modal" id="add-user-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-add-user">&times;</button>
+            <h2 class="modal__title">Добавление пользователя</h2>
+            <form id="add-user-form">
+                <div class="form-group">
+                    <label for="new-user-fio" class="form-label">ФИО *</label>
+                    <input type="text" id="new-user-fio" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-user-email" class="form-label">Email *</label>
+                    <input type="email" id="new-user-email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-user-role" class="form-label">Роль *</label>
+                    <select id="new-user-role" class="form-input" required>
+                        <option value="user">Пользователь</option>
+                        <option value="admin">Администратор</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="new-user-password" class="form-label">Пароль *</label>
+                    <input type="password" id="new-user-password" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-user-password-confirm" class="form-label">Подтверждение пароля *</label>
+                    <input type="password" id="new-user-password-confirm" class="form-input" required>
+                </div>
+                <div class="modal__actions">
+                    <button type="submit" class="btn btn--primary">Добавить пользователя</button>
+                    <button type="button" class="btn btn--secondary" id="cancel-add-user">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Подключение скриптов -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

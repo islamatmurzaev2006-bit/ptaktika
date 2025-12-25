@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хычинная | Личный кабинет</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container header__container">
+            <!-- Логотип -->
+            <a href="index.html" class="logo">
+                <img src="logo/logo.png" alt="Логотип Хычинной" class="logo__img">
+                <span class="logo__text">ХЫЧИННАЯ</span>
+            </a>
+            
+            <!-- Навигация для ПК -->
+            <nav class="nav desktop-nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="index.html" class="nav__link">Главная</a></li>
+                    <li class="nav__item"><a href="menu.html" class="nav__link">Меню</a></li>
+                    <li class="nav__item"><a href="about.html" class="nav__link">О нас</a></li>
+                    <li class="nav__item"><a href="delivery.html" class="nav__link">Доставка</a></li>
+                    <li class="nav__item"><a href="contacts.html" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Иконки пользователя и корзины -->
+            <div class="header__actions">
+                <a href="#" class="header__icon" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="#" class="header__icon" id="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <!-- Бургер-меню для мобильных -->
+                <button class="burger" id="burger-btn" aria-label="Открыть меню">
+                    <span class="burger__line"></span>
+                    <span class="burger__line"></span>
+                    <span class="burger__line"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Вертикальное меню для мобильных -->
+        <nav class="vertical-nav" id="vertical-nav">
+            <div class="vertical-nav__header">
+                <span class="vertical-nav__title">Меню</span>
+                <button class="vertical-nav__close" id="close-menu" aria-label="Закрыть меню">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="vertical-nav__list">
+                <li class="vertical-nav__item"><a href="index.html" class="vertical-nav__link"><i class="fas fa-home"></i> Главная</a></li>
+                <li class="vertical-nav__item"><a href="menu.html" class="vertical-nav__link"><i class="fas fa-utensils"></i> Меню</a></li>
+                <li class="vertical-nav__item"><a href="about.html" class="vertical-nav__link"><i class="fas fa-info-circle"></i> О нас</a></li>
+                <li class="vertical-nav__item"><a href="delivery.html" class="vertical-nav__link"><i class="fas fa-truck"></i> Доставка</a></li>
+                <li class="vertical-nav__item"><a href="contacts.html" class="vertical-nav__link"><i class="fas fa-address-book"></i> Контакты</a></li>
+                
+                <!-- Блок для авторизованного пользователя -->
+                <div class="vertical-nav__auth" id="auth-block">
+                    <li class="vertical-nav__item"><a href="profile.html" class="vertical-nav__link active"><i class="fas fa-user-circle"></i> Личный кабинет</a></li>
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Выход</a></li>
+                </div>
+                
+                <!-- Блок для гостя -->
+                <div class="vertical-nav__guest" id="guest-block">
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="login-btn"><i class="fas fa-sign-in-alt"></i> Вход</a></li>
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="register-btn"><i class="fas fa-user-plus"></i> Регистрация</a></li>
+                </div>
+            </ul>
+        </nav>
+        
+        <!-- Оверлей для меню -->
+        <div class="overlay" id="overlay"></div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main">
+        <!-- Проверка авторизации -->
+        <div id="auth-check" style="display: none;">
+            <!-- Здесь будет проверка через JavaScript -->
+        </div>
+        
+        <!-- Заголовок страницы -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-header__title">Личный кабинет</h1>
+                <p class="page-header__subtitle">Управляйте своими заказами и настройками</p>
+            </div>
+        </section>
+
+        <!-- Основной контент личного кабинета -->
+        <section class="profile-content">
+            <div class="container">
+                <div class="profile__grid">
+                    <!-- Боковая панель -->
+                    <aside class="profile-sidebar">
+                        <div class="user-info">
+                            <div class="user-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="user-details">
+                                <h3 class="user-name" id="user-name">Иван Иванов</h3>
+                                <p class="user-email" id="user-email">ivan@example.com</p>
+                                <div class="user-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-number" id="total-orders">0</span>
+                                        <span class="stat-label">заказов</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-number" id="total-spent">0</span>
+                                        <span class="stat-label">потрачено</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <nav class="profile-nav">
+                            <ul class="profile-nav__list">
+                                <li class="profile-nav__item">
+                                    <a href="#profile-info" class="profile-nav__link active" data-tab="profile">
+                                        <i class="fas fa-user"></i>
+                                        <span>Профиль</span>
+                                    </a>
+                                </li>
+                                <li class="profile-nav__item">
+                                    <a href="#current-orders" class="profile-nav__link" data-tab="current">
+                                        <i class="fas fa-shopping-basket"></i>
+                                        <span>Текущие заказы</span>
+                                        <span class="badge" id="current-orders-badge">0</span>
+                                    </a>
+                                </li>
+                                <li class="profile-nav__item">
+                                    <a href="#order-history" class="profile-nav__link" data-tab="history">
+                                        <i class="fas fa-history"></i>
+                                        <span>История заказов</span>
+                                    </a>
+                                </li>
+                                <li class="profile-nav__item">
+                                    <a href="#favorites" class="profile-nav__link" data-tab="favorites">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Избранное</span>
+                                        <span class="badge" id="favorites-badge">0</span>
+                                    </a>
+                                </li>
+                                <li class="profile-nav__item">
+                                    <a href="#addresses" class="profile-nav__link" data-tab="addresses">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Адреса доставки</span>
+                                    </a>
+                                </li>
+                                <li class="profile-nav__item">
+                                    <a href="#reviews" class="profile-nav__link" data-tab="reviews">
+                                        <i class="fas fa-star"></i>
+                                        <span>Мои отзывы</span>
+                                    </a>
+                                </li>
+                                <li class="profile-nav__item">
+                                    <a href="#settings" class="profile-nav__link" data-tab="settings">
+                                        <i class="fas fa-cog"></i>
+                                        <span>Настройки</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        
+                        <div class="sidebar-help">
+                            <h4>Нужна помощь?</h4>
+                            <p>Наши операторы всегда готовы помочь</p>
+                            <a href="contacts.html" class="btn btn--small btn--secondary">Связаться с поддержкой</a>
+                        </div>
+                    </aside>
+                    
+                    <!-- Основная область -->
+                    <div class="profile-main">
+                        <!-- Вкладка: Профиль -->
+                        <div class="profile-tab active" id="profile-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Мой профиль</h2>
+                                <button class="btn btn--small" id="edit-profile-btn">Редактировать</button>
+                            </div>
+                            
+                            <div class="profile-info">
+                                <div class="info-row">
+                                    <div class="info-label">ФИО:</div>
+                                    <div class="info-value" id="profile-fio">Иванов Иван Иванович</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Логин:</div>
+                                    <div class="info-value" id="profile-username">ivanov</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Email:</div>
+                                    <div class="info-value" id="profile-email">ivan@example.com</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Телефон:</div>
+                                    <div class="info-value" id="profile-phone">+7 (999) 123-45-67</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Дата регистрации:</div>
+                                    <div class="info-value" id="profile-regdate">15.10.2023</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Статус:</div>
+                                    <div class="info-value"><span class="status-badge status-badge--active">Активен</span></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Форма редактирования профиля (скрыта по умолчанию) -->
+                            <form id="edit-profile-form" class="profile-edit-form" style="display: none;">
+                                <div class="form-group">
+                                    <label for="edit-fio" class="form-label">ФИО</label>
+                                    <input type="text" id="edit-fio" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-phone" class="form-label">Телефон</label>
+                                    <input type="tel" id="edit-phone" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-email" class="form-label">Email</label>
+                                    <input type="email" id="edit-email" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-password" class="form-label">Новый пароль (оставьте пустым, если не хотите менять)</label>
+                                    <input type="password" id="edit-password" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-password-confirm" class="form-label">Повторите пароль</label>
+                                    <input type="password" id="edit-password-confirm" class="form-input">
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn--primary">Сохранить изменения</button>
+                                    <button type="button" class="btn btn--secondary" id="cancel-edit-btn">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Вкладка: Текущие заказы -->
+                        <div class="profile-tab" id="current-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Текущие заказы</h2>
+                                <div class="filter-orders">
+                                    <select id="order-filter" class="form-input form-input--small">
+                                        <option value="all">Все заказы</option>
+                                        <option value="new">Новые</option>
+                                        <option value="cooking">Готовятся</option>
+                                        <option value="delivery">В доставке</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="orders-list" id="current-orders-list">
+                                <!-- Заказы будут загружаться динамически -->
+                                <div class="empty-state">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <h3>У вас нет текущих заказов</h3>
+                                    <p>Сделайте свой первый заказ, и он появится здесь</p>
+                                    <a href="menu.html" class="btn btn--primary">Перейти в меню</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: История заказов -->
+                        <div class="profile-tab" id="history-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">История заказов</h2>
+                                <div class="filter-orders">
+                                    <select id="history-filter" class="form-input form-input--small">
+                                        <option value="all">Все заказы</option>
+                                        <option value="month">За месяц</option>
+                                        <option value="3month">За 3 месяца</option>
+                                        <option value="year">За год</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="orders-list" id="history-orders-list">
+                                <!-- История заказов будет загружаться динамически -->
+                                <div class="empty-state">
+                                    <i class="fas fa-history"></i>
+                                    <h3>История заказов пуста</h3>
+                                    <p>Здесь будут отображаться ваши завершенные заказы</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Избранное -->
+                        <div class="profile-tab" id="favorites-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Избранное</h2>
+                                <button class="btn btn--small btn--danger" id="clear-favorites-btn">Очистить всё</button>
+                            </div>
+                            
+                            <div class="favorites-list" id="favorites-list">
+                                <!-- Избранные блюда будут загружаться динамически -->
+                                <div class="empty-state">
+                                    <i class="fas fa-heart"></i>
+                                    <h3>Список избранного пуст</h3>
+                                    <p>Добавляйте любимые блюда, нажимая на сердечко в меню</p>
+                                    <a href="menu.html" class="btn btn--primary">Перейти в меню</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Адреса доставки -->
+                        <div class="profile-tab" id="addresses-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Адреса доставки</h2>
+                                <button class="btn btn--small" id="add-address-btn">Добавить адрес</button>
+                            </div>
+                            
+                            <div class="addresses-list" id="addresses-list">
+                                <!-- Адреса будут загружаться динамически -->
+                                <div class="empty-state">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <h3>Адреса не добавлены</h3>
+                                    <p>Добавьте адреса для быстрого оформления заказов</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Форма добавления адреса (скрыта по умолчанию) -->
+                            <form id="add-address-form" class="address-form" style="display: none;">
+                                <div class="form-group">
+                                    <label for="address-name" class="form-label">Название адреса</label>
+                                    <input type="text" id="address-name" class="form-input" placeholder="Например: Дом, Офис" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="address-city" class="form-label">Город</label>
+                                        <input type="text" id="address-city" class="form-input" value="Москва" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address-street" class="form-label">Улица</label>
+                                        <input type="text" id="address-street" class="form-input" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="address-house" class="form-label">Дом</label>
+                                        <input type="text" id="address-house" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address-apartment" class="form-label">Квартира/офис</label>
+                                        <input type="text" id="address-apartment" class="form-input">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address-comment" class="form-label">Комментарий для курьера</label>
+                                    <textarea id="address-comment" class="form-input" rows="3" placeholder="Например: код домофона, этаж и т.д."></textarea>
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" id="address-default" class="form-checkbox">
+                                    <label for="address-default" class="form-check-label">Сделать основным адресом доставки</label>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn--primary">Сохранить адрес</button>
+                                    <button type="button" class="btn btn--secondary" id="cancel-address-btn">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Вкладка: Мои отзывы -->
+                        <div class="profile-tab" id="reviews-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Мои отзывы</h2>
+                                <div class="filter-reviews">
+                                    <select id="reviews-filter" class="form-input form-input--small">
+                                        <option value="all">Все отзывы</option>
+                                        <option value="5">5 звёзд</option>
+                                        <option value="4">4 звезды</option>
+                                        <option value="3">3 звезды</option>
+                                        <option value="2">2 звезды</option>
+                                        <option value="1">1 звезда</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="reviews-list" id="reviews-list">
+                                <!-- Отзывы будут загружаться динамически -->
+                                <div class="empty-state">
+                                    <i class="fas fa-star"></i>
+                                    <h3>У вас нет отзывов</h3>
+                                    <p>Оставьте отзыв о заказе, и он появится здесь</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Настройки -->
+                        <div class="profile-tab" id="settings-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Настройки аккаунта</h2>
+                            </div>
+                            
+                            <div class="settings-sections">
+                                <div class="settings-section">
+                                    <h3 class="settings-section__title">Уведомления</h3>
+                                    <div class="settings-options">
+                                        <div class="settings-option">
+                                            <div class="settings-option__info">
+                                                <h4>Email уведомления</h4>
+                                                <p>Получать информацию о заказах и акциях на email</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" id="notify-email" checked>
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="settings-option">
+                                            <div class="settings-option__info">
+                                                <h4>SMS уведомления</h4>
+                                                <p>Получать SMS о статусе заказа</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" id="notify-sms">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="settings-option">
+                                            <div class="settings-option__info">
+                                                <h4>Push уведомления</h4>
+                                                <p>Получать push-уведомления в браузере</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" id="notify-push">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h3 class="settings-section__title">Конфиденциальность</h3>
+                                    <div class="settings-options">
+                                        <div class="settings-option">
+                                            <div class="settings-option__info">
+                                                <h4>Показывать мой профиль</h4>
+                                                <p>Разрешить другим пользователям видеть мой профиль</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" id="privacy-profile" checked>
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="settings-option">
+                                            <div class="settings-option__info">
+                                                <h4>Показывать мои отзывы</h4>
+                                                <p>Публиковать мои отзывы на сайте</p>
+                                            </div>
+                                            <label class="switch">
+                                                <input type="checkbox" id="privacy-reviews" checked>
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h3 class="settings-section__title">Опасная зона</h3>
+                                    <div class="danger-zone">
+                                        <div class="danger-option">
+                                            <div class="danger-option__info">
+                                                <h4>Экспорт данных</h4>
+                                                <p>Скачать все ваши данные в формате JSON</p>
+                                            </div>
+                                            <button class="btn btn--small btn--secondary" id="export-data-btn">Экспорт</button>
+                                        </div>
+                                        <div class="danger-option">
+                                            <div class="danger-option__info">
+                                                <h4>Удаление аккаунта</h4>
+                                                <p>Безвозвратно удалить аккаунт и все данные</p>
+                                            </div>
+                                            <button class="btn btn--small btn--danger" id="delete-account-btn">Удалить аккаунт</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <a href="index.html" class="logo footer__logo">
+                        <img src="logo/logo.png" alt="Логотип Хычинной" class="logo__img">
+                        <span class="logo__text">ХЫЧИННАЯ</span>
+                    </a>
+                    <p class="footer__description">Традиционные кавказские хычины, приготовленные с душой по старинным рецептам.</p>
+                    <div class="footer__social">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Страницы</h3>
+                    <ul class="footer__list">
+                        <li><a href="index.html" class="footer__link">Главная</a></li>
+                        <li><a href="menu.html" class="footer__link">Меню</a></li>
+                        <li><a href="about.html" class="footer__link">О нас</a></li>
+                        <li><a href="delivery.html" class="footer__link">Доставка</a></li>
+                        <li><a href="contacts.html" class="footer__link">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Контакты</h3>
+                    <ul class="footer__list">
+                        <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Кавказская, 15</li>
+                        <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@khychinnaya.ru</li>
+                        <li><i class="fas fa-clock"></i> Ежедневно 10:00 - 23:00</li>
+                    </ul>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Подписка</h3>
+                    <p class="footer__text">Подпишитесь на рассылку, чтобы первыми узнавать о новинках и акциях.</p>
+                    <form class="footer__form" id="subscribe-form">
+                        <input type="email" class="footer__input" placeholder="Ваш email" required>
+                        <button type="submit" class="btn btn--small">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2023 Хычинная. Все права защищены.</p>
+                <a href="#" class="footer__policy">Политика конфиденциальности</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальные окна -->
+    <!-- Модалка входа -->
+    <div class="modal" id="login-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-login">&times;</button>
+            <h2 class="modal__title">Вход в личный кабинет</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username" class="form-label">Логин</label>
+                    <input type="text" id="login-username" class="form-input" required>
+                    <div class="error-message" id="login-username-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="login-password" class="form-label">Пароль</label>
+                    <input type="password" id="login-password" class="form-input" required>
+                    <div class="error-message" id="login-password-error"></div>
+                </div>
+                <button type="submit" class="btn btn--primary btn--block">Войти</button>
+                <div class="form-footer">
+                    <p>Нет аккаунта? <a href="#" id="switch-to-register">Зарегистрироваться</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модалка регистрации -->
+    <div class="modal" id="register-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-register">&times;</button>
+            <h2 class="modal__title">Регистрация</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="reg-fio" class="form-label">ФИО</label>
+                    <input type="text" id="reg-fio" class="form-input" required>
+                    <div class="error-message" id="reg-fio-error">Только кириллица, дефисы и пробелы</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-username" class="form-label">Логин</label>
+                    <input type="text" id="reg-username" class="form-input" required>
+                    <div class="error-message" id="reg-username-error">Только латинские буквы</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email" class="form-label">Email</label>
+                    <input type="email" id="reg-email" class="form-input" required>
+                    <div class="error-message" id="reg-email-error">Некорректный email</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password" class="form-label">Пароль</label>
+                    <input type="password" id="reg-password" class="form-input" required>
+                    <div class="error-message" id="reg-password-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password-confirm" class="form-label">Повторите пароль</label>
+                    <input type="password" id="reg-password-confirm" class="form-input" required>
+                    <div class="error-message" id="reg-password-confirm-error">Пароли не совпадают</div>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" id="reg-agreement" class="form-checkbox" required>
+                    <label for="reg-agreement" class="form-check-label">Согласен на обработку персональных данных</label>
+                    <div class="error-message" id="reg-agreement-error">Необходимо согласие</div>
+                </div>
+                <button type="submit" class="btn btn--primary btn--block">Зарегистрироваться</button>
+                <div class="form-footer">
+                    <p>Уже есть аккаунт? <a href="#" id="switch-to-login">Войти</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модалка корзины -->
+    <div class="modal" id="cart-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-cart">&times;</button>
+            <h2 class="modal__title">Корзина</h2>
+            <div class="cart-items" id="cart-items">
+                <!-- Товары будут добавляться динамически -->
+                <p class="cart-empty" id="cart-empty">Корзина пуста</p>
+            </div>
+            <div class="cart-total">
+                <span>Итого:</span>
+                <span id="cart-total-price">0 ₽</span>
+            </div>
+            <button class="btn btn--primary btn--block" id="checkout-btn">Оформить заказ</button>
+        </div>
+    </div>
+    
+    <!-- Модалка подтверждения удаления заказа -->
+    <div class="modal" id="delete-order-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-delete-order">&times;</button>
+            <h2 class="modal__title">Подтверждение удаления</h2>
+            <p class="modal__text">Вы уверены, что хотите удалить заказ <strong id="delete-order-number">#0000</strong>?</p>
+            <p class="modal__warning">Это действие невозможно отменить.</p>
+            <div class="modal__actions">
+                <button class="btn btn--danger" id="confirm-delete-order">Удалить</button>
+                <button class="btn btn--secondary" id="cancel-delete-order">Отмена</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модалка подтверждения удаления аккаунта -->
+    <div class="modal" id="delete-account-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-delete-account">&times;</button>
+            <h2 class="modal__title">Удаление аккаунта</h2>
+            <p class="modal__text">Вы уверены, что хотите удалить свой аккаунт?</p>
+            <p class="modal__warning">Это действие удалит:</p>
+            <ul class="modal__list">
+                <li>Все ваши заказы и историю</li>
+                <li>Избранные товары</li>
+                <li>Сохраненные адреса</li>
+                <li>Отзывы и настройки</li>
+            </ul>
+            <p class="modal__warning"><strong>Это действие невозможно отменить!</strong></p>
+            <div class="form-group">
+                <label for="delete-confirm-password" class="form-label">Для подтверждения введите ваш пароль:</label>
+                <input type="password" id="delete-confirm-password" class="form-input" required>
+            </div>
+            <div class="modal__actions">
+                <button class="btn btn--danger" id="confirm-delete-account">Удалить аккаунт</button>
+                <button class="btn btn--secondary" id="cancel-delete-account">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение скриптов -->
+    <script src="js/script.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

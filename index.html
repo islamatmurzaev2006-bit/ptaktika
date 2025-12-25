@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хычинная | Главная</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container header__container">
+            <!-- Логотип -->
+            <a href="index.html" class="logo">
+                <img src="logo/logo.png" alt="Логотип Хычинной" class="logo__img">
+                <span class="logo__text">ХЫЧИННАЯ</span>
+            </a>
+            
+            <!-- Навигация для ПК -->
+            <nav class="nav desktop-nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="index.html" class="nav__link active">Главная</a></li>
+                    <li class="nav__item"><a href="menu.html" class="nav__link">Меню</a></li>
+                    <li class="nav__item"><a href="about.html" class="nav__link">О нас</a></li>
+                    <li class="nav__item"><a href="delivery.html" class="nav__link">Доставка</a></li>
+                    <li class="nav__item"><a href="contacts.html" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Иконки пользователя и корзины -->
+            <div class="header__actions">
+                <a href="#" class="header__icon" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="#" class="header__icon" id="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <!-- Бургер-меню для мобильных -->
+                <button class="burger" id="burger-btn" aria-label="Открыть меню">
+                    <span class="burger__line"></span>
+                    <span class="burger__line"></span>
+                    <span class="burger__line"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Вертикальное меню для мобильных -->
+        <nav class="vertical-nav" id="vertical-nav">
+            <div class="vertical-nav__header">
+                <span class="vertical-nav__title">Меню</span>
+                <button class="vertical-nav__close" id="close-menu" aria-label="Закрыть меню">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="vertical-nav__list">
+                <li class="vertical-nav__item"><a href="index.html" class="vertical-nav__link active"><i class="fas fa-home"></i> Главная</a></li>
+                <li class="vertical-nav__item"><a href="menu.html" class="vertical-nav__link"><i class="fas fa-utensils"></i> Меню</a></li>
+                <li class="vertical-nav__item"><a href="about.html" class="vertical-nav__link"><i class="fas fa-info-circle"></i> О нас</a></li>
+                <li class="vertical-nav__item"><a href="delivery.html" class="vertical-nav__link"><i class="fas fa-truck"></i> Доставка</a></li>
+                <li class="vertical-nav__item"><a href="contacts.html" class="vertical-nav__link"><i class="fas fa-address-book"></i> Контакты</a></li>
+                
+                <!-- Блок для авторизованного пользователя -->
+                <div class="vertical-nav__auth" id="auth-block">
+                    <li class="vertical-nav__item"><a href="profile.html" class="vertical-nav__link"><i class="fas fa-user-circle"></i> Личный кабинет</a></li>
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Выход</a></li>
+                </div>
+                
+                <!-- Блок для гостя -->
+                <div class="vertical-nav__guest" id="guest-block">
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="login-btn"><i class="fas fa-sign-in-alt"></i> Вход</a></li>
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="register-btn"><i class="fas fa-user-plus"></i> Регистрация</a></li>
+                </div>
+            </ul>
+        </nav>
+        
+        <!-- Оверлей для меню -->
+        <div class="overlay" id="overlay"></div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main">
+        <!-- Герой-секция -->
+        <section class="hero">
+            <div class="container hero__container">
+                <div class="hero__content">
+                    <h1 class="hero__title">Настоящие кавказские хычины</h1>
+                    <p class="hero__subtitle">Традиционные лепешки с начинкой, приготовленные по старинным рецептам</p>
+                    <a href="menu.html" class="btn btn--primary hero__btn">Посмотреть меню</a>
+                </div>
+                <div class="hero__image">
+                    <img src="https://static.1000.menu/img/content-v2/9c/df/20911/xychiny-s-syrom_1592460888_22_max.jpg" alt="Хычины на тарелке">
+                </div>
+            </div>
+        </section>
+
+        <!-- Популярные блюда -->
+        <section class="popular">
+            <div class="container">
+                <h2 class="section-title">Популярные хычины</h2>
+                <p class="section-subtitle">Попробуйте наши хиты продаж</p>
+                
+                <div class="popular__grid">
+                    <!-- Карточка 1 -->
+                    <div class="dish-card">
+                        <div class="dish-card__image">
+                            <img src="https://i.ytimg.com/vi/9t6lFQc1cw0/maxresdefault.jpg" alt="Хычин с мясом" class="dish-img">
+                        </div>
+                        <div class="dish-card__content">
+                            <h3 class="dish-card__title">Хычин с мясом</h3>
+                            <p class="dish-card__description">Сочная баранина со специями в тонком тесте</p>
+                            <div class="dish-card__footer">
+                                <span class="dish-card__price">320 ₽</span>
+                                <button class="btn btn--small add-to-cart" data-id="1" data-name="Хычин с мясом" data-price="320">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Карточка 2 -->
+                    <div class="dish-card">
+                        <div class="dish-card__image">
+                            <img src="https://i.ytimg.com/vi/fQ1qYnATM_U/maxresdefault.jpg" alt="Хычин с картошкой и сыром" class="dish-img">
+                        </div>
+                        <div class="dish-card__content">
+                            <h3 class="dish-card__title">С картошкой и сыром</h3>
+                            <p class="dish-card__description">Картофельное пюре с рассольным сыром</p>
+                            <div class="dish-card__footer">
+                                <span class="dish-card__price">280 ₽</span>
+                                <button class="btn btn--small add-to-cart" data-id="2" data-name="Хычин с картошкой и сыром" data-price="280">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Карточка 3 -->
+                    <div class="dish-card">
+                        <div class="dish-card__image">
+                            <img src="https://i.ytimg.com/vi/7DTxycXkcn0/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gWSgTMA8=&rs=AOn4CLCDPAbbkw97dlpXjZRdnfYzGdbkqw" alt="Хычин с зеленью" class="dish-img">
+                        </div>
+                        <div class="dish-card__content">
+                            <h3 class="dish-card__title">С зеленью и сыром</h3>
+                            <p class="dish-card__description">Свежая зелень с домашним сыром и специями</p>
+                            <div class="dish-card__footer">
+                                <span class="dish-card__price">260 ₽</span>
+                                <button class="btn btn--small add-to-cart" data-id="3" data-name="Хычин с зеленью и сыром" data-price="260">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Карточка 4 -->
+                    <div class="dish-card">
+                        <div class="dish-card__image">
+                            <img src="https://yandex-images.clstorage.net/Ua5Eg1215/42db5czrII/h42rq38DJs-l3f_agrIr0zlz6xcj4zsWrGDO-GsjGWwJSXWl9ss-cYSUDF5ZQfk4mT3f0mqDJP9532VePMyoW8LZ6_k-XWHPoMm00M6oJ8MsP_ZUNqEiEqs5wv5QGWlJeyFcxYboQwmYl1MIWgvmK9hSscVK0HeabZ8FbQWJ-BGImZWcQjJ85JD9gdOonSnaIzDjEQSAO3OQb7u8fyBjXUMuf8SN6XkoqJ5TFmkBvz7ATJSoYdtYrUaxBWgUmOs4uJico1QzcPG036f1pL8G5RkOzzcPlRFOp0umnl4MckF1CWffvcVaBKa1TjhVJaUcx0SfrHvScYh6hjJrOKP0JJSVpZ5vGX3WjcOpy4-0JOAZF-8CA4g9TbZphaRBEGJsShtc2pvWQgqxkXctdRaCN9xaqot42l2BTI8TYASLyDChlJOIbBJpzbj3sMKwuQXjKTL0IzanOWORXLuEfSx5UGgEcu-gznMisr9ZA2UcnjLlb4utWt93hXyiNk4hkeoEuZmMjFk4SdWr-bTHsLku1RQW1RwejxhRom-yiGEARXB3G13vnuFJL7WbRyhtGIUR50yXj0rGX7t8izRGJ7jzEbyZjq9FBVnJq8Kd0JqKGcApN88RL6EGSq9nnZloCl1OTwp87q3LaAyJoEs7RQeDNc9Mr6JOwFm_c5oaTRep0By0irKISz5p8ZX0oNaXmhj0KxvINBSBOWSdToKCeQl5RF0UXMer5nMJjLlZOG8Ajj7DfoeSQuRAnHGAPmQnmPcltrmnj3QWSvOp2bTkkroDzg0s6CMUoh5Lhk-WoXkAT0pAK3zwmeN7ELmPfy5eJq8f30Whj2vDQLZTqixXMontD7CjvLthOWbtisOT0amvO8UVG-sbGa8-XoF8gIB1Fm5QTjNQ8JbdWQWvjlkaSxeyCOxvo6hD0lCNaaALdzKl9gC7ipKJZD94zavjtPKgiibCNi3rEwK-Gky3RYSuQAI" alt="Хычин с грибами" class="dish-img">
+                        </div>
+                        <div class="dish-card__content">
+                            <h3 class="dish-card__title">С грибами</h3>
+                            <p class="dish-card__description">Лесные грибы с луком и сливочным маслом</p>
+                            <div class="dish-card__footer">
+                                <span class="dish-card__price">300 ₽</span>
+                                <button class="btn btn--small add-to-cart" data-id="4" data-name="Хычин с грибами" data-price="300">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Новости и акции -->
+        <section class="news">
+            <div class="container">
+                <h2 class="section-title">Новости и акции</h2>
+                <p class="section-subtitle">Следите за нашими обновлениями</p>
+                
+                <div class="news__grid">
+                    <!-- Новость 1 -->
+                    <article class="news-card">
+                        <div class="news-card__image">
+                            <img src="https://pic.rutubelist.ru/video/2025-08-28/10/87/1087f5a7b12224e863fb1ad4bbe041b1.jpg" alt="Вечеринка с хычинами" class="news-img">
+                        </div>
+                        <div class="news-card__content">
+                            <span class="news-card__date">15.10.2026</span>
+                            <span class="news-card__category">Событие</span>
+                            <h3 class="news-card__title">Фестиваль хычинов</h3>
+                            <p class="news-card__description">Приглашаем на ежегодный фестиваль кавказской кухни! Дегустация, мастер-классы и живая музыка.</p>
+                            <a href="#" class="news-card__link">Подробнее →</a>
+                        </div>
+                    </article>
+                    
+                    <!-- Новость 2 -->
+                    <article class="news-card">
+                        <div class="news-card__image">
+                            <img src="https://avatars.mds.yandex.net/i?id=2d4d738257736198cdd89536b473f24f_l-16427651-images-thumbs&n=13" alt="Скидка на доставку" class="news-img">
+                        </div>
+                        <div class="news-card__content">
+                            <span class="news-card__date">10.10.2023</span>
+                            <span class="news-card__category">Акция</span>
+                            <h3 class="news-card__title">Бесплатная доставка</h3>
+                            <p class="news-card__description">При заказе от 1000 рублей - доставка бесплатно! Акция действует до конца месяца.</p>
+                            <a href="#" class="news-card__link">Подробнее →</a>
+                        </div>
+                    </article>
+                    
+                    <!-- Новость 3 -->
+                    <article class="news-card">
+                        <div class="news-card__image">
+                            <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Новый хычин" class="news-img">
+                        </div>
+                        <div class="news-card__content">
+                            <span class="news-card__date">05.10.2023</span>
+                            <span class="news-card__category">Новинка</span>
+                            <h3 class="news-card__title">Хычин с тыквой</h3>
+                            <p class="news-card__description">Попробуйте нашу новинку - хычин с тыквой и орехами по старинному рецепту.</p>
+                            <a href="#" class="news-card__link">Подробнее →</a>
+                        </div>
+                    </article>
+                    
+                    <!-- Новость 4 -->
+                    <article class="news-card">
+                        <div class="news-card__image">
+                            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Ресторан внутри" class="news-img">
+                        </div>
+                        <div class="news-card__content">
+                            <span class="news-card__date">01.10.2023</span>
+                            <span class="news-card__category">Обновление</span>
+                            <h3 class="news-card__title">Новый интерьер</h3>
+                            <p class="news-card__description">Мы обновили интерьер нашего зала в традиционном кавказском стиле. Ждем в гости!</p>
+                            <a href="#" class="news-card__link">Подробнее →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Счетчик -->
+        <section class="counter">
+            <div class="container">
+                <div class="counter__content">
+                    <h2 class="counter__title">Наша статистика</h2>
+                    <div class="counter__item">
+                        <i class="fas fa-utensils counter__icon"></i>
+                        <div class="counter__number" id="khychin-counter">0</div>
+                        <div class="counter__label">хычинов приготовлено</div>
+                    </div>
+                    <div class="counter__item">
+                        <i class="fas fa-users counter__icon"></i>
+                        <div class="counter__number" id="visitor-counter">0</div>
+                        <div class="counter__label">довольных гостей</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- О кухне -->
+        <section class="about-preview">
+            <div class="container">
+                <div class="about-preview__grid">
+                    <div class="about-preview__image">
+                        <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Приготовление хычинов">
+                    </div>
+                    <div class="about-preview__content">
+                        <h2 class="section-title">О нашей кухне</h2>
+                        <p>Хычин — это не просто лепешка с начинкой, это многовековая традиция карачаево-балкарского народа. Мы готовим наши хычины строго по традиционным рецептам, передаваемым из поколения в поколение.</p>
+                        <p>Тесто замешивается вручную, начинка готовится из свежих местных продуктов, а выпекаются хычины в специальной печи.</p>
+                        <a href="about.html" class="btn btn--secondary">Узнать больше</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <a href="index.html" class="logo footer__logo">
+                        <img src="logo/logo.png" alt="Логотип Хычинной" class="logo__img">
+                        <span class="logo__text">ХЫЧИННАЯ</span>
+                    </a>
+                    <p class="footer__description">Традиционные кавказские хычины, приготовленные с душой по старинным рецептам.</p>
+                    <div class="footer__social">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Страницы</h3>
+                    <ul class="footer__list">
+                        <li><a href="index.html" class="footer__link">Главная</a></li>
+                        <li><a href="menu.html" class="footer__link">Меню</a></li>
+                        <li><a href="about.html" class="footer__link">О нас</a></li>
+                        <li><a href="delivery.html" class="footer__link">Доставка</a></li>
+                        <li><a href="contacts.html" class="footer__link">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Контакты</h3>
+                    <ul class="footer__list">
+                        <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Кавказская, 15</li>
+                        <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@khychinnaya.ru</li>
+                        <li><i class="fas fa-clock"></i> Ежедневно 10:00 - 23:00</li>
+                    </ul>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Подписка</h3>
+                    <p class="footer__text">Подпишитесь на рассылку, чтобы первыми узнавать о новинках и акциях.</p>
+                    <form class="footer__form" id="subscribe-form">
+                        <input type="email" class="footer__input" placeholder="Ваш email" required>
+                        <button type="submit" class="btn btn--small">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2023 Хычинная. Все права защищены.</p>
+                <a href="#" class="footer__policy">Политика конфиденциальности</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальные окна -->
+    <!-- Модалка входа -->
+    <div class="modal" id="login-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-login">&times;</button>
+            <h2 class="modal__title">Вход в личный кабинет</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username" class="form-label">Логин</label>
+                    <input type="text" id="login-username" class="form-input" required>
+                    <div class="error-message" id="login-username-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="login-password" class="form-label">Пароль</label>
+                    <input type="password" id="login-password" class="form-input" required>
+                    <div class="error-message" id="login-password-error"></div>
+                </div>
+                <button type="submit" class="btn btn--primary btn--block">Войти</button>
+                <div class="form-footer">
+                    <p>Нет аккаунта? <a href="#" id="switch-to-register">Зарегистрироваться</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модалка регистрации -->
+    <div class="modal" id="register-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-register">&times;</button>
+            <h2 class="modal__title">Регистрация</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="reg-fio" class="form-label">ФИО</label>
+                    <input type="text" id="reg-fio" class="form-input" required>
+                    <div class="error-message" id="reg-fio-error">Только кириллица, дефисы и пробелы</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-username" class="form-label">Логин</label>
+                    <input type="text" id="reg-username" class="form-input" required>
+                    <div class="error-message" id="reg-username-error">Только латинские буквы</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email" class="form-label">Email</label>
+                    <input type="email" id="reg-email" class="form-input" required>
+                    <div class="error-message" id="reg-email-error">Некорректный email</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password" class="form-label">Пароль</label>
+                    <input type="password" id="reg-password" class="form-input" required>
+                    <div class="error-message" id="reg-password-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password-confirm" class="form-label">Повторите пароль</label>
+                    <input type="password" id="reg-password-confirm" class="form-input" required>
+                    <div class="error-message" id="reg-password-confirm-error">Пароли не совпадают</div>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" id="reg-agreement" class="form-checkbox" required>
+                    <label for="reg-agreement" class="form-check-label">Согласен на обработку персональных данных</label>
+                    <div class="error-message" id="reg-agreement-error">Необходимо согласие</div>
+                </div>
+                <button type="submit" class="btn btn--primary btn--block">Зарегистрироваться</button>
+                <div class="form-footer">
+                    <p>Уже есть аккаунт? <a href="#" id="switch-to-login">Войти</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модалка корзины -->
+    <div class="modal" id="cart-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-cart">&times;</button>
+            <h2 class="modal__title">Корзина</h2>
+            <div class="cart-items" id="cart-items">
+                <!-- Товары будут добавляться динамически -->
+                <p class="cart-empty" id="cart-empty">Корзина пуста</p>
+            </div>
+            <div class="cart-total">
+                <span>Итого:</span>
+                <span id="cart-total-price">0 ₽</span>
+            </div>
+            <button class="btn btn--primary btn--block" id="checkout-btn">Оформить заказ</button>
+        </div>
+    </div>
+
+    <!-- Подключение скриптов -->
+    <script src="js/script.js"></script>
+</body>
+</html>

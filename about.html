@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хычинная | О нас</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container header__container">
+            <!-- Логотип -->
+            <a href="index.html" class="logo">
+                <img src="logo/logo.png" alt="Логотип Хычинной" class="logo__img">
+                <span class="logo__text">ХЫЧИННАЯ</span>
+            </a>
+            
+            <!-- Навигация для ПК -->
+            <nav class="nav desktop-nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="index.html" class="nav__link">Главная</a></li>
+                    <li class="nav__item"><a href="menu.html" class="nav__link">Меню</a></li>
+                    <li class="nav__item"><a href="about.html" class="nav__link active">О нас</a></li>
+                    <li class="nav__item"><a href="delivery.html" class="nav__link">Доставка</a></li>
+                    <li class="nav__item"><a href="contacts.html" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Иконки пользователя и корзины -->
+            <div class="header__actions">
+                <a href="#" class="header__icon" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="#" class="header__icon" id="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <!-- Бургер-меню для мобильных -->
+                <button class="burger" id="burger-btn" aria-label="Открыть меню">
+                    <span class="burger__line"></span>
+                    <span class="burger__line"></span>
+                    <span class="burger__line"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Вертикальное меню для мобильных -->
+        <nav class="vertical-nav" id="vertical-nav">
+            <div class="vertical-nav__header">
+                <span class="vertical-nav__title">Меню</span>
+                <button class="vertical-nav__close" id="close-menu" aria-label="Закрыть меню">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="vertical-nav__list">
+                <li class="vertical-nav__item"><a href="index.html" class="vertical-nav__link"><i class="fas fa-home"></i> Главная</a></li>
+                <li class="vertical-nav__item"><a href="menu.html" class="vertical-nav__link"><i class="fas fa-utensils"></i> Меню</a></li>
+                <li class="vertical-nav__item"><a href="about.html" class="vertical-nav__link active"><i class="fas fa-info-circle"></i> О нас</a></li>
+                <li class="vertical-nav__item"><a href="delivery.html" class="vertical-nav__link"><i class="fas fa-truck"></i> Доставка</a></li>
+                <li class="vertical-nav__item"><a href="contacts.html" class="vertical-nav__link"><i class="fas fa-address-book"></i> Контакты</a></li>
+                
+                <!-- Блок для авторизованного пользователя -->
+                <div class="vertical-nav__auth" id="auth-block">
+                    <li class="vertical-nav__item"><a href="profile.html" class="vertical-nav__link"><i class="fas fa-user-circle"></i> Личный кабинет</a></li>
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Выход</a></li>
+                </div>
+                
+                <!-- Блок для гостя -->
+                <div class="vertical-nav__guest" id="guest-block">
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="login-btn"><i class="fas fa-sign-in-alt"></i> Вход</a></li>
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="register-btn"><i class="fas fa-user-plus"></i> Регистрация</a></li>
+                </div>
+            </ul>
+        </nav>
+        
+        <!-- Оверлей для меню -->
+        <div class="overlay" id="overlay"></div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main">
+        <!-- Заголовок страницы -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-header__title">О нас и наших традициях</h1>
+                <p class="page-header__subtitle">Погрузитесь в мир кавказской кухни и узнайте историю хычинов</p>
+            </div>
+        </section>
+
+        <!-- История -->
+        <section class="history">
+            <div class="container">
+                <div class="history__grid">
+                    <div class="history__image">
+                        <img src="https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Старинная кавказская кухня">
+                        <div class="history__year">Основано в 2015</div>
+                    </div>
+                    <div class="history__content">
+                        <h2 class="section-title">Наша история</h2>
+                        <p>Хычинная была основана в 2015 году семьей Алиевых, выходцами из Кабардино-Балкарии. Мама Залина и папа Мурат привезли в Москву не просто рецепты, а частичку своей культуры и тепла родного дома.</p>
+                        <p>Начав с небольшой кухни на 20 квадратных метров, сегодня мы владеем собственным производством и рестораном, где каждый день готовим более 500 хычинов для наших гостей.</p>
+                        <p>Наша миссия — познакомить жителей и гостей столицы с аутентичной кавказской кухней, сохраняя все традиции приготовления.</p>
+                        <div class="history__stats">
+                            <div class="stat-item">
+                                <div class="stat-number" data-count="8">0</div>
+                                <div class="stat-label">лет работы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-count="50000">0</div>
+                                <div class="stat-label">довольных гостей</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-count="15">0</div>
+                                <div class="stat-label">видов хычинов</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <!-- Что такое хычин -->
+        <section class="what-is">
+            <div class="container">
+                <div class="what-is__content">
+                    <h2 class="section-title">Что такое хычин?</h2>
+                    <div class="what-is__text">
+                        <p><strong>Хычин</strong> — традиционное блюдо карачаево-балкарской кухни, тонкая лепешка из пресного теста с разнообразной начинкой.</p>
+                        <p>История хычинов насчитывает несколько столетий. Изначально это была пища пастухов в горах Кавказа — сытная, долго сохраняющая тепло и не требующая сложных условий хранения.</p>
+                        <p>Традиционно хычины готовятся из трех основных видов теста:</p>
+                        <ul class="what-is__list">
+                            <li><strong>Прессное тесто</strong> — для классических хычинов</li>
+                            <li><strong>Дрожжевое тесто</strong> — для праздничных вариантов</li>
+                            <li><strong>Слоеное тесто</strong> — современная интерпретация</li>
+                        </ul>
+                        <p>В нашей Хычинной мы используем классическое прессное тесто, как это делали наши предки.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        
+
+        <!-- Отзывы -->
+        <section class="reviews">
+            <div class="container">
+                <h2 class="section-title">Отзывы наших гостей</h2>
+                <p class="section-subtitle">Что говорят о нас</p>
+                
+                <div class="reviews__slider">
+                    <div class="reviews__track">
+                        <!-- Отзыв 1 -->
+                        <div class="review-card">
+                            <div class="review-card__header">
+                                <div class="review-card__avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="review-card__info">
+                                    <div class="review-card__name">Анна Смирнова</div>
+                                    <div class="review-card__date">15.10.2023</div>
+                                </div>
+                                <div class="review-card__rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="review-card__content">
+                                <p>Лучшие хычины в Москве! Пробовала и мясные, и с картошкой — все невероятно вкусно. Особенно понравился хычин с тыквой — необычно и очень вкусно. Обязательно вернемся!</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Отзыв 2 -->
+                        <div class="review-card">
+                            <div class="review-card__header">
+                                <div class="review-card__avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="review-card__info">
+                                    <div class="review-card__name">Дмитрий Волков</div>
+                                    <div class="review-card__date">12.10.2023</div>
+                                </div>
+                                <div class="review-card__rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                            <div class="review-card__content">
+                                <p>Бывал на Кавказе, могу сравнить — здесь действительно аутентичный вкус. Тесто тонкое, начинка сочная, подают горячими. Цены адекватные. Рекомендую хычин с бараниной!</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Отзыв 3 -->
+                        <div class="review-card">
+                            <div class="review-card__header">
+                                <div class="review-card__avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="review-card__info">
+                                    <div class="review-card__name">Ольга Ковалева</div>
+                                    <div class="review-card__date">08.10.2023</div>
+                                </div>
+                                <div class="review-card__rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="review-card__content">
+                                <p>Заказывали доставку в офис — все приехало горячим и вовремя. Коллеги в восторге! Порции большие, одного хычина хватает на обед. Теперь заказываем регулярно.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="reviews__controls">
+                        <button class="reviews__prev" id="reviews-prev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="reviews__next" id="reviews-next">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Кнопка для добавления отзыва -->
+                <div class="reviews__action">
+                    <button class="btn btn--secondary" id="add-review-btn">Оставить отзыв</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Форма обратной связи -->
+        <section class="contact-form-section">
+            <div class="container">
+                <div class="contact-form__grid">
+                    <div class="contact-form__content">
+                        <h2 class="section-title">Остались вопросы?</h2>
+                        <p>Напишите нам, и мы с радостью ответим на все ваши вопросы о нашей кухне, традициях или поможем с выбором блюд.</p>
+                        <div class="contact-info">
+                            <div class="contact-info__item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <div class="contact-info__label">Телефон</div>
+                                    <div class="contact-info__value">+7 (999) 123-45-67</div>
+                                </div>
+                            </div>
+                            <div class="contact-info__item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <div class="contact-info__label">Email</div>
+                                    <div class="contact-info__value">info@khychinnaya.ru</div>
+                                </div>
+                            </div>
+                            <div class="contact-info__item">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <div class="contact-info__label">Время работы</div>
+                                    <div class="contact-info__value">Ежедневно 10:00 - 23:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form__form">
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <label for="contact-name" class="form-label">Ваше имя</label>
+                                <input type="text" id="contact-name" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-phone" class="form-label">Телефон</label>
+                                <input type="tel" id="contact-phone" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-message" class="form-label">Сообщение</label>
+                                <textarea id="contact-message" class="form-input" rows="4" required placeholder="Ваш вопрос или предложение..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn--primary btn--block">Отправить сообщение</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <a href="index.html" class="logo footer__logo">
+                        <img src="logo/logo.png" alt="Логотип Хычинной" class="logo__img">
+                        <span class="logo__text">ХЫЧИННАЯ</span>
+                    </a>
+                    <p class="footer__description">Традиционные кавказские хычины, приготовленные с душой по старинным рецептам.</p>
+                    <div class="footer__social">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Страницы</h3>
+                    <ul class="footer__list">
+                        <li><a href="index.html" class="footer__link">Главная</a></li>
+                        <li><a href="menu.html" class="footer__link">Меню</a></li>
+                        <li><a href="about.html" class="footer__link">О нас</a></li>
+                        <li><a href="delivery.html" class="footer__link">Доставка</a></li>
+                        <li><a href="contacts.html" class="footer__link">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Контакты</h3>
+                    <ul class="footer__list">
+                        <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Кавказская, 15</li>
+                        <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@khychinnaya.ru</li>
+                        <li><i class="fas fa-clock"></i> Ежедневно 10:00 - 23:00</li>
+                    </ul>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Подписка</h3>
+                    <p class="footer__text">Подпишитесь на рассылку, чтобы первыми узнавать о новинках и акциях.</p>
+                    <form class="footer__form" id="subscribe-form">
+                        <input type="email" class="footer__input" placeholder="Ваш email" required>
+                        <button type="submit" class="btn btn--small">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2023 Хычинная. Все права защищены.</p>
+                <a href="#" class="footer__policy">Политика конфиденциальности</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальные окна -->
+    <!-- Модалка входа -->
+    <div class="modal" id="login-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-login">&times;</button>
+            <h2 class="modal__title">Вход в личный кабинет</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username" class="form-label">Логин</label>
+                    <input type="text" id="login-username" class="form-input" required>
+                    <div class="error-message" id="login-username-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="login-password" class="form-label">Пароль</label>
+                    <input type="password" id="login-password" class="form-input" required>
+                    <div class="error-message" id="login-password-error"></div>
+                </div>
+                <button type="submit" class="btn btn--primary btn--block">Войти</button>
+                <div class="form-footer">
+                    <p>Нет аккаунта? <a href="#" id="switch-to-register">Зарегистрироваться</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модалка регистрации -->
+    <div class="modal" id="register-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-register">&times;</button>
+            <h2 class="modal__title">Регистрация</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="reg-fio" class="form-label">ФИО</label>
+                    <input type="text" id="reg-fio" class="form-input" required>
+                    <div class="error-message" id="reg-fio-error">Только кириллица, дефисы и пробелы</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-username" class="form-label">Логин</label>
+                    <input type="text" id="reg-username" class="form-input" required>
+                    <div class="error-message" id="reg-username-error">Только латинские буквы</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email" class="form-label">Email</label>
+                    <input type="email" id="reg-email" class="form-input" required>
+                    <div class="error-message" id="reg-email-error">Некорректный email</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password" class="form-label">Пароль</label>
+                    <input type="password" id="reg-password" class="form-input" required>
+                    <div class="error-message" id="reg-password-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password-confirm" class="form-label">Повторите пароль</label>
+                    <input type="password" id="reg-password-confirm" class="form-input" required>
+                    <div class="error-message" id="reg-password-confirm-error">Пароли не совпадают</div>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" id="reg-agreement" class="form-checkbox" required>
+                    <label for="reg-agreement" class="form-check-label">Согласен на обработку персональных данных</label>
+                    <div class="error-message" id="reg-agreement-error">Необходимо согласие</div>
+                </div>
+                <button type="submit" class="btn btn--primary btn--block">Зарегистрироваться</button>
+                <div class="form-footer">
+                    <p>Уже есть аккаунт? <a href="#" id="switch-to-login">Войти</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модалка корзины -->
+    <div class="modal" id="cart-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-cart">&times;</button>
+            <h2 class="modal__title">Корзина</h2>
+            <div class="cart-items" id="cart-items">
+                <!-- Товары будут добавляться динамически -->
+                <p class="cart-empty" id="cart-empty">Корзина пуста</p>
+            </div>
+            <div class="cart-total">
+                <span>Итого:</span>
+                <span id="cart-total-price">0 ₽</span>
+            </div>
+            <button class="btn btn--primary btn--block" id="checkout-btn">Оформить заказ</button>
+        </div>
+    </div>
+    
+    <!-- Модалка отзыва -->
+    <div class="modal" id="review-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-review">&times;</button>
+            <h2 class="modal__title">Оставить отзыв</h2>
+            <form id="review-form">
+                <div class="form-group">
+                    <label for="review-name" class="form-label">Ваше имя</label>
+                    <input type="text" id="review-name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Оценка</label>
+                    <div class="rating-input">
+                        <input type="radio" id="star5" name="rating" value="5">
+                        <label for="star5"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2"><i class="fas fa-star"></i></label>
+                        
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1"><i class="fas fa-star"></i></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="review-text" class="form-label">Текст отзыва</label>
+                    <textarea id="review-text" class="form-input" rows="5" required placeholder="Поделитесь вашими впечатлениями..."></textarea>
+                </div>
+                <button type="submit" class="btn btn--primary btn--block">Опубликовать отзыв</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Подключение скриптов -->
+    <script src="js/script.js"></script>
+    <script src="js/about.js"></script>
+</body>
+</html>

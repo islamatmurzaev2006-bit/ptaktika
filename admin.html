@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хычинная | Админ-панель</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <style>
+        /* Дополнительные стили для админ-панели */
+        .admin-header {
+            background: linear-gradient(135deg, #C19A6B 0%, #8B4513 100%);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        .admin-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .admin-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        
+        .admin-warning {
+            background-color: #FFF3CD;
+            border: 1px solid #FFEAA7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .admin-warning i {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Простая шапка для админки -->
+    <div class="admin-header">
+        <div class="container">
+            <h1><i class="fas fa-crown"></i> Административная панель "Хычинная"</h1>
+            <p>Управление рестораном и заказами</p>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <main class="main">
+        <div class="container">
+            <!-- Предупреждение о безопасности -->
+            <div class="admin-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>Внимание!</strong> Это демонстрационная версия админ-панели без защиты.
+                    В реальной системе требуется авторизация.
+                </div>
+            </div>
+            
+            <!-- Быстрая статистика -->
+            <section class="admin-stats">
+                <h2 class="section-title">Общая статистика</h2>
+                <div class="stats__grid">
+                    <div class="stat-card">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Новые заказы</h3>
+                            <div class="stat-card__value" id="new-orders-count">12</div>
+                            <div class="stat-card__change">+2 за сегодня</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Всего клиентов</h3>
+                            <div class="stat-card__value" id="total-customers">1,245</div>
+                            <div class="stat-card__change">+5 за неделю</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-ruble-sign"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Выручка</h3>
+                            <div class="stat-card__value" id="total-revenue">156,800 ₽</div>
+                            <div class="stat-card__change">+15% за месяц</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card__icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-card__content">
+                            <h3 class="stat-card__title">Средний рейтинг</h3>
+                            <div class="stat-card__value" id="avg-rating">4.8</div>
+                            <div class="stat-card__change">4.8 из 5</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Основной контент админ-панели -->
+            <section class="admin-content">
+                <div class="admin__grid">
+                    <!-- Боковая панель -->
+                    <aside class="admin-sidebar">
+                        <nav class="admin-nav">
+                            <ul class="admin-nav__list">
+                                <li class="admin-nav__item">
+                                    <a href="#orders" class="admin-nav__link active" data-tab="orders">
+                                        <i class="fas fa-clipboard-list"></i>
+                                        <span>Управление заказами</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#menu-management" class="admin-nav__link" data-tab="menu">
+                                        <i class="fas fa-utensils"></i>
+                                        <span>Управление меню</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#categories" class="admin-nav__link" data-tab="categories">
+                                        <i class="fas fa-tags"></i>
+                                        <span>Категории блюд</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#users" class="admin-nav__link" data-tab="users">
+                                        <i class="fas fa-users-cog"></i>
+                                        <span>Пользователи</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#reviews" class="admin-nav__link" data-tab="reviews">
+                                        <i class="fas fa-star"></i>
+                                        <span>Отзывы</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#analytics" class="admin-nav__link" data-tab="analytics">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Аналитика</span>
+                                    </a>
+                                </li>
+                                <li class="admin-nav__item">
+                                    <a href="#settings" class="admin-nav__link" data-tab="settings">
+                                        <i class="fas fa-cogs"></i>
+                                        <span>Настройки</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        
+                        <div class="admin-info">
+                            <h4>Администратор</h4>
+                            <p id="admin-name">Администратор системы</p>
+                            <p id="admin-last-login">Вход: <span id="current-time"></span></p>
+                        </div>
+                    </aside>
+                    
+                    <!-- Основная область -->
+                    <div class="admin-main">
+                        <!-- Вкладка: Управление заказами -->
+                        <div class="admin-tab active" id="orders-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Управление заказами</h2>
+                                <div class="tab-actions">
+                                    <select id="order-status-filter" class="form-input form-input--small">
+                                        <option value="all">Все статусы</option>
+                                        <option value="new">Новые</option>
+                                        <option value="accepted">Принятые</option>
+                                        <option value="cooking">Готовятся</option>
+                                        <option value="delivery">В доставке</option>
+                                        <option value="delivered">Доставленные</option>
+                                        <option value="cancelled">Отмененные</option>
+                                    </select>
+                                    <button class="btn btn--small" id="export-orders-btn">
+                                        <i class="fas fa-download"></i> Экспорт
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="table-container">
+                                <table id="orders-table" class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Клиент</th>
+                                            <th>Дата</th>
+                                            <th>Сумма</th>
+                                            <th>Статус</th>
+                                            <th>Действия</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1001</td>
+                                            <td>Иван Иванов</td>
+                                            <td>15.10.2023 12:30</td>
+                                            <td>1,250 ₽</td>
+                                            <td><span class="status-badge status-badge--new">Новый</span></td>
+                                            <td>
+                                                <button class="btn btn--small view-order-btn" data-id="1001">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn--small edit-order-btn" data-id="1001">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1002</td>
+                                            <td>Анна Петрова</td>
+                                            <td>14.10.2023 18:45</td>
+                                            <td>890 ₽</td>
+                                            <td><span class="status-badge status-badge--cooking">Готовится</span></td>
+                                            <td>
+                                                <button class="btn btn--small view-order-btn" data-id="1002">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn--small edit-order-btn" data-id="1002">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1003</td>
+                                            <td>Дмитрий Смирнов</td>
+                                            <td>14.10.2023 20:15</td>
+                                            <td>1,640 ₽</td>
+                                            <td><span class="status-badge status-badge--delivery">В доставке</span></td>
+                                            <td>
+                                                <button class="btn btn--small view-order-btn" data-id="1003">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn--small edit-order-btn" data-id="1003">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1004</td>
+                                            <td>Ольга Ковалева</td>
+                                            <td>13.10.2023 14:20</td>
+                                            <td>560 ₽</td>
+                                            <td><span class="status-badge status-badge--delivered">Доставлен</span></td>
+                                            <td>
+                                                <button class="btn btn--small view-order-btn" data-id="1004">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn--small edit-order-btn" data-id="1004">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1005</td>
+                                            <td>Сергей Волков</td>
+                                            <td>12.10.2023 19:30</td>
+                                            <td>1,200 ₽</td>
+                                            <td><span class="status-badge status-badge--cancelled">Отменен</span></td>
+                                            <td>
+                                                <button class="btn btn--small view-order-btn" data-id="1005">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn--small edit-order-btn" data-id="1005">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Управление меню -->
+                        <div class="admin-tab" id="menu-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Управление меню</h2>
+                                <div class="tab-actions">
+                                    <button class="btn btn--primary btn--small" id="add-dish-btn">
+                                        <i class="fas fa-plus"></i> Добавить блюдо
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="menu-management">
+                                <div class="menu-filters">
+                                    <select id="menu-category-filter" class="form-input form-input--small">
+                                        <option value="all">Все категории</option>
+                                        <option value="1">Хычины</option>
+                                        <option value="2">Напитки</option>
+                                        <option value="3">Закуски</option>
+                                    </select>
+                                    <input type="text" id="menu-search" class="form-input form-input--small" placeholder="Поиск по названию...">
+                                </div>
+                                
+                                <div class="dishes-grid" id="dishes-grid">
+                                    <div class="dish-card-admin">
+                                        <div class="dish-card-admin__image">
+                                            <img src="https://i.ytimg.com/vi/9t6lFQc1cw0/maxresdefault.jpg" alt="Хычин с мясом">
+                                        </div>
+                                        <div class="dish-card-admin__content">
+                                            <div class="dish-card-admin__header">
+                                                <h4 class="dish-card-admin__title">Хычин с мясом</h4>
+                                                <div class="dish-card-admin__price">320 ₽</div>
+                                            </div>
+                                            <p class="dish-card-admin__description">Сочная баранина со специями в тонком тесте</p>
+                                            <div class="dish-card-admin__footer">
+                                                <span class="dish-card-admin__category">Хычины</span>
+                                                <span class="dish-card-admin__status status-active">Активно</span>
+                                            </div>
+                                        </div>
+                                        <div class="dish-card-admin__actions">
+                                            <button class="btn btn--small edit-dish-btn" data-id="1">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn--small delete-dish-btn" data-id="1">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="dish-card-admin">
+                                        <div class="dish-card-admin__image">
+                                            <img src="https://i.ytimg.com/vi/fQ1qYnATM_U/maxresdefault.jpg" alt="Хычин с картошкой">
+                                        </div>
+                                        <div class="dish-card-admin__content">
+                                            <div class="dish-card-admin__header">
+                                                <h4 class="dish-card-admin__title">Хычин с картошкой и сыром</h4>
+                                                <div class="dish-card-admin__price">280 ₽</div>
+                                            </div>
+                                            <p class="dish-card-admin__description">Картофельное пюре с рассольным сыром</p>
+                                            <div class="dish-card-admin__footer">
+                                                <span class="dish-card-admin__category">Хычины</span>
+                                                <span class="dish-card-admin__status status-active">Активно</span>
+                                            </div>
+                                        </div>
+                                        <div class="dish-card-admin__actions">
+                                            <button class="btn btn--small edit-dish-btn" data-id="2">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn--small delete-dish-btn" data-id="2">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="dish-card-admin">
+                                        <div class="dish-card-admin__image">
+                                            <img src="https://images.unsplash.com/photo-1541658016709-82535e94bc69?ixlib=rb-4.0.3" alt="Айран">
+                                        </div>
+                                        <div class="dish-card-admin__content">
+                                            <div class="dish-card-admin__header">
+                                                <h4 class="dish-card-admin__title">Айран</h4>
+                                                <div class="dish-card-admin__price">150 ₽</div>
+                                            </div>
+                                            <p class="dish-card-admin__description">Традиционный кисломолочный напиток</p>
+                                            <div class="dish-card-admin__footer">
+                                                <span class="dish-card-admin__category">Напитки</span>
+                                                <span class="dish-card-admin__status status-active">Активно</span>
+                                            </div>
+                                        </div>
+                                        <div class="dish-card-admin__actions">
+                                            <button class="btn btn--small edit-dish-btn" data-id="3">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn--small delete-dish-btn" data-id="3">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="dish-card-admin">
+                                        <div class="dish-card-admin__image">
+                                            <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3" alt="Чай черный">
+                                        </div>
+                                        <div class="dish-card-admin__content">
+                                            <div class="dish-card-admin__header">
+                                                <h4 class="dish-card-admin__title">Чай черный</h4>
+                                                <div class="dish-card-admin__price">100 ₽</div>
+                                            </div>
+                                            <p class="dish-card-admin__description">Ароматный черный чай</p>
+                                            <div class="dish-card-admin__footer">
+                                                <span class="dish-card-admin__category">Напитки</span>
+                                                <span class="dish-card-admin__status status-active">Активно</span>
+                                            </div>
+                                        </div>
+                                        <div class="dish-card-admin__actions">
+                                            <button class="btn btn--small edit-dish-btn" data-id="4">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn--small delete-dish-btn" data-id="4">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Категории блюд -->
+                        <div class="admin-tab" id="categories-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Управление категориями</h2>
+                                <div class="tab-actions">
+                                    <button class="btn btn--primary btn--small" id="add-category-btn">
+                                        <i class="fas fa-plus"></i> Добавить категорию
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="categories-management">
+                                <div class="categories-list" id="categories-list">
+                                    <div class="category-card">
+                                        <div class="category-card__info">
+                                            <div class="category-card__icon">
+                                                <i class="fas fa-bread-slice"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="category-card__name">Хычины</h4>
+                                                <p class="category-card__description">Традиционные кавказские лепешки с начинкой</p>
+                                                <span class="category-card__count">8 блюд</span>
+                                            </div>
+                                        </div>
+                                        <div class="category-card__actions">
+                                            <span class="category-card__status status-active">Активна</span>
+                                            <button class="btn btn--small edit-category-btn" data-id="1">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn--small delete-category-btn" data-id="1">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="category-card">
+                                        <div class="category-card__info">
+                                            <div class="category-card__icon">
+                                                <i class="fas fa-wine-glass-alt"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="category-card__name">Напитки</h4>
+                                                <p class="category-card__description">Национальные и традиционные напитки</p>
+                                                <span class="category-card__count">5 блюд</span>
+                                            </div>
+                                        </div>
+                                        <div class="category-card__actions">
+                                            <span class="category-card__status status-active">Активна</span>
+                                            <button class="btn btn--small edit-category-btn" data-id="2">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn--small delete-category-btn" data-id="2">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="category-card">
+                                        <div class="category-card__info">
+                                            <div class="category-card__icon">
+                                                <i class="fas fa-cheese"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="category-card__name">Закуски</h4>
+                                                <p class="category-card__description">Легкие закуски к основным блюдам</p>
+                                                <span class="category-card__count">3 блюда</span>
+                                            </div>
+                                        </div>
+                                        <div class="category-card__actions">
+                                            <span class="category-card__status status-active">Активна</span>
+                                            <button class="btn btn--small edit-category-btn" data-id="3">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn--small delete-category-btn" data-id="3">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Пользователи -->
+                        <div class="admin-tab" id="users-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Управление пользователями</h2>
+                                <div class="tab-actions">
+                                    <select id="user-role-filter" class="form-input form-input--small">
+                                        <option value="all">Все роли</option>
+                                        <option value="user">Пользователи</option>
+                                        <option value="admin">Администраторы</option>
+                                    </select>
+                                    <button class="btn btn--small" id="add-user-btn">
+                                        <i class="fas fa-user-plus"></i> Добавить
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="table-container">
+                                <table id="users-table" class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>ФИО</th>
+                                            <th>Email</th>
+                                            <th>Роль</th>
+                                            <th>Дата регистрации</th>
+                                            <th>Статус</th>
+                                            <th>Действия</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Иванов Иван Иванович</td>
+                                            <td>ivanov@example.com</td>
+                                            <td><span class="user-role role-admin">Админ</span></td>
+                                            <td>15.01.2023</td>
+                                            <td><span class="user-status status-active">Активен</span></td>
+                                            <td>
+                                                <button class="btn btn--small edit-user-btn" data-id="1">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn--small delete-user-btn" data-id="1">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Петрова Анна Сергеевна</td>
+                                            <td>petrova@example.com</td>
+                                            <td><span class="user-role role-user">Пользователь</span></td>
+                                            <td>20.02.2023</td>
+                                            <td><span class="user-status status-active">Активен</span></td>
+                                            <td>
+                                                <button class="btn btn--small edit-user-btn" data-id="2">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn--small delete-user-btn" data-id="2">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Смирнов Дмитрий Алексеевич</td>
+                                            <td>smirnov@example.com</td>
+                                            <td><span class="user-role role-user">Пользователь</span></td>
+                                            <td>05.03.2023</td>
+                                            <td><span class="user-status status-active">Активен</span></td>
+                                            <td>
+                                                <button class="btn btn--small edit-user-btn" data-id="3">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn--small delete-user-btn" data-id="3">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Отзывы -->
+                        <div class="admin-tab" id="reviews-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Управление отзывами</h2>
+                                <div class="tab-actions">
+                                    <select id="review-rating-filter" class="form-input form-input--small">
+                                        <option value="all">Все оценки</option>
+                                        <option value="5">5 звёзд</option>
+                                        <option value="4">4 звезды</option>
+                                        <option value="3">3 звезды</option>
+                                        <option value="2">2 звезды</option>
+                                        <option value="1">1 звезда</option>
+                                    </select>
+                                    <select id="review-status-filter" class="form-input form-input--small">
+                                        <option value="all">Все статусы</option>
+                                        <option value="pending">На модерации</option>
+                                        <option value="approved">Одобрены</option>
+                                        <option value="rejected">Отклонены</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="reviews-list" id="admin-reviews-list">
+                                <div class="review-card-admin">
+                                    <div class="review-card-admin__header">
+                                        <div class="review-card-admin__user">
+                                            <div class="review-card-admin__avatar">
+                                                <i class="fas fa-user-circle"></i>
+                                            </div>
+                                            <div class="review-card-admin__info">
+                                                <h4>Анна Смирнова</h4>
+                                                <span class="review-card-admin__date">15.10.2023</span>
+                                            </div>
+                                        </div>
+                                        <div class="review-card-admin__rating" title="5 из 5">
+                                            ★★★★★
+                                        </div>
+                                    </div>
+                                    <div class="review-card-admin__content">
+                                        <h5>Лучшие хычины в Москве!</h5>
+                                        <p>Пробовала и мясные, и с картошкой — все невероятно вкусно. Особенно понравился хычин с тыквой — необычно и очень вкусно. Обязательно вернемся!</p>
+                                        <div class="review-card-admin__order">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            Заказ #1001 • Хычин с мясом
+                                        </div>
+                                    </div>
+                                    <div class="review-card-admin__footer">
+                                        <span class="review-status status-approved">Одобрен</span>
+                                        <div class="review-card-admin__actions">
+                                            <button class="btn btn--small approve-review-btn" data-id="1">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            <button class="btn btn--small reject-review-btn" data-id="1">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                            <button class="btn btn--small delete-review-btn" data-id="1">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="review-card-admin">
+                                    <div class="review-card-admin__header">
+                                        <div class="review-card-admin__user">
+                                            <div class="review-card-admin__avatar">
+                                                <i class="fas fa-user-circle"></i>
+                                            </div>
+                                            <div class="review-card-admin__info">
+                                                <h4>Дмитрий Волков</h4>
+                                                <span class="review-card-admin__date">12.10.2023</span>
+                                            </div>
+                                        </div>
+                                        <div class="review-card-admin__rating" title="4 из 5">
+                                            ★★★★☆
+                                        </div>
+                                    </div>
+                                    <div class="review-card-admin__content">
+                                        <h5>Аутентичный вкус</h5>
+                                        <p>Бывал на Кавказе, могу сравнить — здесь действительно аутентичный вкус. Тесто тонкое, начинка сочная, подают горячими. Цены адекватные.</p>
+                                        <div class="review-card-admin__order">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            Заказ #1002 • Хычин с картошкой
+                                        </div>
+                                    </div>
+                                    <div class="review-card-admin__footer">
+                                        <span class="review-status status-approved">Одобрен</span>
+                                        <div class="review-card-admin__actions">
+                                            <button class="btn btn--small approve-review-btn" data-id="2">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            <button class="btn btn--small reject-review-btn" data-id="2">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                            <button class="btn btn--small delete-review-btn" data-id="2">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Аналитика -->
+                        <div class="admin-tab" id="analytics-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Аналитика и отчёты</h2>
+                                <div class="tab-actions">
+                                    <select id="analytics-period" class="form-input form-input--small">
+                                        <option value="today">Сегодня</option>
+                                        <option value="week">Неделя</option>
+                                        <option value="month" selected>Месяц</option>
+                                        <option value="year">Год</option>
+                                    </select>
+                                    <button class="btn btn--small" id="generate-report-btn">
+                                        <i class="fas fa-file-export"></i> Отчёт
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="analytics-dashboard">
+                                <div class="analytics-charts">
+                                    <div class="chart-container">
+                                        <h3>Продажи по дням</h3>
+                                        <canvas id="sales-chart" height="200"></canvas>
+                                    </div>
+                                    
+                                    <div class="chart-container">
+                                        <h3>Популярные категории</h3>
+                                        <canvas id="categories-chart" height="200"></canvas>
+                                    </div>
+                                </div>
+                                
+                                <div class="analytics-stats">
+                                    <div class="stat-box">
+                                        <h4>Ключевые показатели</h4>
+                                        <div class="key-metrics">
+                                            <div class="metric">
+                                                <span class="metric-label">Средний чек</span>
+                                                <span class="metric-value">850 ₽</span>
+                                            </div>
+                                            <div class="metric">
+                                                <span class="metric-label">Конверсия</span>
+                                                <span class="metric-value">8.5%</span>
+                                            </div>
+                                            <div class="metric">
+                                                <span class="metric-label">Повторные покупки</span>
+                                                <span class="metric-value">35%</span>
+                                            </div>
+                                            <div class="metric">
+                                                <span class="metric-label">Время доставки</span>
+                                                <span class="metric-value">42 мин</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="stat-box">
+                                        <h4>Топ-5 блюд</h4>
+                                        <div class="top-dishes" id="top-dishes-list">
+                                            <div class="top-dish">
+                                                <span class="dish-name">Хычин с мясом</span>
+                                                <span class="dish-count">152 продажи</span>
+                                            </div>
+                                            <div class="top-dish">
+                                                <span class="dish-name">Хычин с картошкой</span>
+                                                <span class="dish-count">128 продаж</span>
+                                            </div>
+                                            <div class="top-dish">
+                                                <span class="dish-name">Айран</span>
+                                                <span class="dish-count">89 продаж</span>
+                                            </div>
+                                            <div class="top-dish">
+                                                <span class="dish-name">Хычин с зеленью</span>
+                                                <span class="dish-count">76 продаж</span>
+                                            </div>
+                                            <div class="top-dish">
+                                                <span class="dish-name">Чай черный</span>
+                                                <span class="dish-count">54 продажи</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Вкладка: Настройки -->
+                        <div class="admin-tab" id="settings-tab">
+                            <div class="tab-header">
+                                <h2 class="tab-title">Настройки системы</h2>
+                            </div>
+                            
+                            <div class="settings-sections">
+                                <div class="settings-section">
+                                    <h3 class="settings-section__title">Основные настройки</h3>
+                                    <form id="general-settings-form">
+                                        <div class="form-group">
+                                            <label for="restaurant-name" class="form-label">Название ресторана</label>
+                                            <input type="text" id="restaurant-name" class="form-input" value="Хычинная">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="restaurant-phone" class="form-label">Телефон ресторана</label>
+                                            <input type="tel" id="restaurant-phone" class="form-input" value="+7 (999) 123-45-67">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="restaurant-email" class="form-label">Email ресторана</label>
+                                            <input type="email" id="restaurant-email" class="form-input" value="info@khychinnaya.ru">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="working-hours" class="form-label">Часы работы</label>
+                                            <input type="text" id="working-hours" class="form-input" value="10:00 - 23:00">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="delivery-radius" class="form-label">Радиус доставки (км)</label>
+                                            <input type="number" id="delivery-radius" class="form-input" value="10" min="1" max="50">
+                                        </div>
+                                        
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn--primary">Сохранить настройки</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <span class="logo footer__logo">
+                        <img src="logo/logo.png" alt="Логотип Хычинной" class="logo__img" style="height: 40px;">
+                        <span class="logo__text">ХЫЧИННАЯ</span>
+                    </span>
+                    <p class="footer__description">Традиционные кавказские хычины, приготовленные с душой по старинным рецептам.</p>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Админ-панель</h3>
+                    <ul class="footer__list">
+                        <li><i class="fas fa-info-circle"></i> Демо-версия без защиты</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> Только для тестирования</li>
+                        <li><i class="fas fa-code"></i> Версия 1.0</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2023 Хычинная. Админ-панель (демо-версия).</p>
+                <p class="footer__policy">Внимание: это незащищенная демонстрационная версия.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальные окна -->
+    <div class="modal" id="notification-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-notification">&times;</button>
+            <h2 class="modal__title" id="notification-title">Уведомление</h2>
+            <div class="modal__text" id="notification-text">Операция выполнена успешно</div>
+            <div class="modal__actions">
+                <button class="btn btn--primary" id="close-notification-btn">ОК</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение скриптов -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/admin-simple.js"></script>
+</body>
+</html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хычинная | Доставка и оплата</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="container header__container">
+            <!-- Логотип -->
+            <a href="index.html" class="logo">
+                <img src="logo/logo.png" alt="Логотип Хычинной" class="logo__img">
+                <span class="logo__text">ХЫЧИННАЯ</span>
+            </a>
+            
+            <!-- Навигация для ПК -->
+            <nav class="nav desktop-nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="index.html" class="nav__link">Главная</a></li>
+                    <li class="nav__item"><a href="menu.html" class="nav__link">Меню</a></li>
+                    <li class="nav__item"><a href="about.html" class="nav__link">О нас</a></li>
+                    <li class="nav__item"><a href="delivery.html" class="nav__link active">Доставка</a></li>
+                    <li class="nav__item"><a href="contacts.html" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Иконки пользователя и корзины -->
+            <div class="header__actions">
+                <a href="#" class="header__icon" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="#" class="header__icon" id="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <!-- Бургер-меню для мобильных -->
+                <button class="burger" id="burger-btn" aria-label="Открыть меню">
+                    <span class="burger__line"></span>
+                    <span class="burger__line"></span>
+                    <span class="burger__line"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Вертикальное меню для мобильных -->
+        <nav class="vertical-nav" id="vertical-nav">
+            <div class="vertical-nav__header">
+                <span class="vertical-nav__title">Меню</span>
+                <button class="vertical-nav__close" id="close-menu" aria-label="Закрыть меню">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="vertical-nav__list">
+                <li class="vertical-nav__item"><a href="index.html" class="vertical-nav__link"><i class="fas fa-home"></i> Главная</a></li>
+                <li class="vertical-nav__item"><a href="menu.html" class="vertical-nav__link"><i class="fas fa-utensils"></i> Меню</a></li>
+                <li class="vertical-nav__item"><a href="about.html" class="vertical-nav__link"><i class="fas fa-info-circle"></i> О нас</a></li>
+                <li class="vertical-nav__item"><a href="delivery.html" class="vertical-nav__link active"><i class="fas fa-truck"></i> Доставка</a></li>
+                <li class="vertical-nav__item"><a href="contacts.html" class="vertical-nav__link"><i class="fas fa-address-book"></i> Контакты</a></li>
+                
+                <!-- Блок для авторизованного пользователя -->
+                <div class="vertical-nav__auth" id="auth-block">
+                    <li class="vertical-nav__item"><a href="profile.html" class="vertical-nav__link"><i class="fas fa-user-circle"></i> Личный кабинет</a></li>
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Выход</a></li>
+                </div>
+                
+                <!-- Блок для гостя -->
+                <div class="vertical-nav__guest" id="guest-block">
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="login-btn"><i class="fas fa-sign-in-alt"></i> Вход</a></li>
+                    <li class="vertical-nav__item"><a href="#" class="vertical-nav__link" id="register-btn"><i class="fas fa-user-plus"></i> Регистрация</a></li>
+                </div>
+            </ul>
+        </nav>
+        
+        <!-- Оверлей для меню -->
+        <div class="overlay" id="overlay"></div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main">
+        <!-- Заголовок страницы -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-header__title">Доставка и оплата</h1>
+                <p class="page-header__subtitle">Быстрая доставка горячих хычинов в любую точку города</p>
+            </div>
+        </section>
+
+        <!-- Зоны доставки -->
+        <section class="delivery-zones">
+            <div class="container">
+                <h2 class="section-title">Зоны и условия доставки</h2>
+                
+                <div class="zones__grid">
+                    <div class="zone-card zone-card--free">
+                        <div class="zone-card__header">
+                            <div class="zone-card__icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h3 class="zone-card__title">Ближайшая зона</h3>
+                            <div class="zone-card__time">30-45 минут</div>
+                        </div>
+                        <div class="zone-card__body">
+                            <div class="zone-card__price">Бесплатно от 1000 ₽</div>
+                            <div class="zone-card__min-order">Минимум: 500 ₽</div>
+                            <ul class="zone-card__list">
+                                <li>Центральный округ</li>
+                                <li>Преображенское</li>
+                                <li>Сокольники</li>
+                                <li>Басманный район</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="zone-card zone-card--standard">
+                        <div class="zone-card__header">
+                            <div class="zone-card__icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <h3 class="zone-card__title">Стандартная зона</h3>
+                            <div class="zone-card__time">45-60 минут</div>
+                        </div>
+                        <div class="zone-card__body">
+                            <div class="zone-card__price">150 ₽</div>
+                            <div class="zone-card__min-order">Минимум: 700 ₽</div>
+                            <ul class="zone-card__list">
+                                <li>Северный округ</li>
+                                <li>Южный округ</li>
+                                <li>Восточный округ</li>
+                                <li>Западный округ</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="zone-card zone-card--extended">
+                        <div class="zone-card__header">
+                            <div class="zone-card__icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <h3 class="zone-card__title">Расширенная зона</h3>
+                            <div class="zone-card__time">60-90 минут</div>
+                        </div>
+                        <div class="zone-card__body">
+                            <div class="zone-card__price">250 ₽</div>
+                            <div class="zone-card__min-order">Минимум: 1000 ₽</div>
+                            <ul class="zone-card__list">
+                                <li>Подмосковье (ближнее)</li>
+                                <li>Новые районы</li>
+                                <li>Удаленные локации</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="zones__note">
+                    <p><strong>Время доставки</strong> может меняться в зависимости от загруженности дорог и количества заказов.</p>
+                    <p>При заказе от 2000 ₽ — <strong>доставка бесплатно</strong> в любую зону!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Как заказать -->
+        <section class="how-to-order">
+            <div class="container">
+                <h2 class="section-title">Как заказать доставку</h2>
+                <p class="section-subtitle">Всего 4 простых шага</p>
+                
+                <div class="steps__grid">
+                    <div class="step-card">
+                        <div class="step-card__number">1</div>
+                        <div class="step-card__content">
+                            <h3 class="step-card__title">Выберите блюда</h3>
+                            <p class="step-card__description">Добавьте в корзину любимые хычины, гарниры и напитки из нашего меню.</p>
+                            <a href="menu.html" class="step-card__link">Перейти в меню →</a>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-card__number">2</div>
+                        <div class="step-card__content">
+                            <h3 class="step-card__title">Оформите заказ</h3>
+                            <p class="step-card__description">Укажите адрес доставки, контактные данные и выберите способ оплаты.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-card__number">3</div>
+                        <div class="step-card__content">
+                            <h3 class="step-card__title">Подтверждение</h3>
+                            <p class="step-card__description">Наш оператор свяжется с вами для подтверждения заказа и уточнения деталей.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-card__number">4</div>
+                        <div class="step-card__content">
+                            <h3 class="step-card__title">Получите заказ</h3>
+                            <p class="step-card__description">Курьер доставит горячие хычины прямо к вашей двери в оговоренное время.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Способы оплаты -->
+        <section class="payment-methods">
+            <div class="container">
+                <h2 class="section-title">Способы оплаты</h2>
+                
+                <div class="payment__grid">
+                    <div class="payment-card">
+                        <div class="payment-card__icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3 class="payment-card__title">Наличными курьеру</h3>
+                        <p class="payment-card__description">Оплата наличными при получении заказа. Подготовьте точную сумму или сдачу.</p>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card__icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h3 class="payment-card__title">Картой курьеру</h3>
+                        <p class="payment-card__description">Оплата банковской картой через переносной терминал нашего курьера.</p>
+                        <div class="payment-card__badges">
+                            <span class="badge">Visa</span>
+                            <span class="badge">MasterCard</span>
+                            <span class="badge">МИР</span>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card__icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="payment-card__title">Онлайн-оплата</h3>
+                        <p class="payment-card__description">Безопасная оплата картой на сайте через платежную систему.</p>
+                        <div class="payment-card__badges">
+                            <span class="badge">СБП</span>
+                            <span class="badge">ЮKassa</span>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="payment-card__icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <h3 class="payment-card__title">Электронные кошельки</h3>
+                        <p class="payment-card__description">Оплата через популярные электронные платежные системы.</p>
+                        <div class="payment-card__badges">
+                            <span class="badge">ЮMoney</span>
+                            <span class="badge">QIWI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      
+
+        <!-- Часто задаваемые вопросы -->
+        <section class="faq">
+            <div class="container">
+                <h2 class="section-title">Часто задаваемые вопросы</h2>
+                
+                <div class="faq__accordion">
+                    <!-- Вопрос 1 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-question__text">Как рассчитывается время доставки?</span>
+                            <i class="fas fa-chevron-down faq-question__icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Время доставки рассчитывается с момента подтверждения заказа оператором. Мы учитываем:</p>
+                            <ul>
+                                <li>Время приготовления вашего заказа (15-25 минут)</li>
+                                <li>Расстояние до вашего адреса</li>
+                                <li>Текущую загруженность дорог</li>
+                                <li>Количество активных заказов</li>
+                            </ul>
+                            <p>Точное время доставки сообщит оператор при подтверждении заказа.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Вопрос 2 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-question__text">Можно ли изменить адрес доставки после оформления заказа?</span>
+                            <i class="fas fa-chevron-down faq-question__icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Да, вы можете изменить адрес доставки, если курьер еще не выехал по первоначальному адресу.</p>
+                            <p>Для изменения адреса свяжитесь с нашим оператором по телефону <strong>+7 (999) 123-45-67</strong>. Если курьер уже в пути, изменение адреса может повлиять на время доставки и потребовать дополнительной оплаты.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Вопрос 3 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-question__text">Что делать, если я не получил SMS с кодом для онлайн-оплаты?</span>
+                            <i class="fas fa-chevron-down faq-question__icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Если SMS с кодом не пришло в течение 2-3 минут:</p>
+                            <ol>
+                                <li>Проверьте, правильно ли указан номер телефона</li>
+                                <li>Убедитесь, что на телефоне есть сигнал сети</li>
+                                <li>Проверьте папку "Спам" в сообщениях</li>
+                                <li>Попробуйте запросить код повторно</li>
+                            </ol>
+                            <p>Если проблема сохраняется, выберите другой способ оплаты или свяжитесь с нашим оператором.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Вопрос 4 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-question__text">Можно ли заказать доставку заранее на определенное время?</span>
+                            <i class="fas fa-chevron-down faq-question__icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Да, мы принимаем предварительные заказы. Вы можете заказать доставку на любое время в течение дня.</p>
+                            <p>Для предварительного заказа:</p>
+                            <ol>
+                                <li>Оформите заказ на сайте как обычно</li>
+                                <li>В комментарии укажите желаемое время доставки</li>
+                                <li>Наш оператор свяжется с вами для подтверждения</li>
+                            </ol>
+                            <p>Минимальное время для предварительного заказа — 2 часа.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Вопрос 5 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-question__text">Что делать, если в заказе ошибка или не хватает позиций?</span>
+                            <i class="fas fa-chevron-down faq-question__icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Если вы обнаружили ошибку в заказе:</p>
+                            <ol>
+                                <li>Немедленно свяжитесь с оператором по телефону <strong>+7 (999) 123-45-67</strong></li>
+                                <li>Сообщите номер вашего заказа и обнаруженную проблему</li>
+                                <li>Если курьер уже в пути, мы оперативно решим вопрос</li>
+                            </ol>
+                            <p>В случае нашей ошибки мы бесплатно доставим недостающие позиции или вернем деньги за неправильно доставленные блюда.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Вопрос 6 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span class="faq-question__text">Есть ли у вас бесконтактная доставка?</span>
+                            <i class="fas fa-chevron-down faq-question__icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Да, мы предоставляем услугу бесконтактной доставки. При оформлении заказа вы можете выбрать опцию "Бесконтактная доставка".</p>
+                            <p>Как это работает:</p>
+                            <ol>
+                                <li>Курьер оставляет заказ у вашей двери</li>
+                                <li>Звонит или пишет вам о прибытии</li>
+                                <li>Отходит на безопасное расстояние (2+ метра)</li>
+                                <li>Вы забираете заказ</li>
+                                <li>Оплата производится онлайн или курьеру бесконтактно через терминал</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Калькулятор доставки -->
+        <section class="delivery-calculator">
+            <div class="container">
+                <div class="calculator__grid">
+                    <div class="calculator__content">
+                        <h2 class="section-title">Калькулятор доставки</h2>
+                        <p class="calculator__description">Узнайте стоимость и время доставки до вашего адреса</p>
+                        
+                        <form id="delivery-calculator-form">
+                            <div class="form-group">
+                                <label for="calculator-address" class="form-label">Адрес доставки</label>
+                                <input type="text" id="calculator-address" class="form-input" placeholder="Например: ул. Кавказская, 15" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="calculator-amount" class="form-label">Сумма заказа</label>
+                                <div class="input-with-unit">
+                                    <input type="number" id="calculator-amount" class="form-input" min="0" value="1000" required>
+                                    <span class="input-unit">₽</span>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn--primary btn--block">Рассчитать</button>
+                        </form>
+                    </div>
+                    
+                    <div class="calculator__result">
+                        <div class="result-card">
+                            <h3 class="result-card__title">Результат расчета</h3>
+                            <div class="result-card__content">
+                                <div class="result-item">
+                                    <span class="result-label">Зона доставки:</span>
+                                    <span class="result-value" id="result-zone">—</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Стоимость доставки:</span>
+                                    <span class="result-value" id="result-price">—</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Время доставки:</span>
+                                    <span class="result-value" id="result-time">—</span>
+                                </div>
+                                <div class="result-item result-item--total">
+                                    <span class="result-label">Итого к оплате:</span>
+                                    <span class="result-value" id="result-total">—</span>
+                                </div>
+                            </div>
+                            <div class="result-card__actions">
+                                <a href="menu.html" class="btn btn--primary">Заказать сейчас</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Контактная информация -->
+        <section class="delivery-contact">
+            <div class="container">
+                <div class="contact__grid">
+                    <div class="contact__info">
+                        <h2 class="section-title">Нужна помощь с доставкой?</h2>
+                        <p>Наши операторы всегда готовы помочь с оформлением заказа, ответить на вопросы о доставке и решить любые проблемы.</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-detail">
+                                <i class="fas fa-phone-alt"></i>
+                                <div>
+                                    <div class="contact-detail__label">Телефон для заказов</div>
+                                    <div class="contact-detail__value">+7 (999) 123-45-67</div>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-detail">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <div class="contact-detail__label">Время работы колл-центра</div>
+                                    <div class="contact-detail__value">Ежедневно 9:00 - 23:00</div>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-detail">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <div class="contact-detail__label">Email для вопросов</div>
+                                    <div class="contact-detail__value">delivery@khychinnaya.ru</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact__image">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Доставка еды">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <a href="index.html" class="logo footer__logo">
+                        <img src="logo/logo.png" alt="Логотип Хычинной" class="logo__img">
+                        <span class="logo__text">ХЫЧИННАЯ</span>
+                    </a>
+                    <p class="footer__description">Традиционные кавказские хычины, приготовленные с душой по старинным рецептам.</p>
+                    <div class="footer__social">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Страницы</h3>
+                    <ul class="footer__list">
+                        <li><a href="index.html" class="footer__link">Главная</a></li>
+                        <li><a href="menu.html" class="footer__link">Меню</a></li>
+                        <li><a href="about.html" class="footer__link">О нас</a></li>
+                        <li><a href="delivery.html" class="footer__link">Доставка</a></li>
+                        <li><a href="contacts.html" class="footer__link">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Контакты</h3>
+                    <ul class="footer__list">
+                        <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Кавказская, 15</li>
+                        <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@khychinnaya.ru</li>
+                        <li><i class="fas fa-clock"></i> Ежедневно 10:00 - 23:00</li>
+                    </ul>
+                </div>
+                
+                <div class="footer__col">
+                    <h3 class="footer__title">Подписка</h3>
+                    <p class="footer__text">Подпишитесь на рассылку, чтобы первыми узнавать о новинках и акциях.</p>
+                    <form class="footer__form" id="subscribe-form">
+                        <input type="email" class="footer__input" placeholder="Ваш email" required>
+                        <button type="submit" class="btn btn--small">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; 2023 Хычинная. Все права защищены.</p>
+                <a href="#" class="footer__policy">Политика конфиденциальности</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальные окна -->
+    <!-- Модалка входа -->
+    <div class="modal" id="login-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-login">&times;</button>
+            <h2 class="modal__title">Вход в личный кабинет</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username" class="form-label">Логин</label>
+                    <input type="text" id="login-username" class="form-input" required>
+                    <div class="error-message" id="login-username-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="login-password" class="form-label">Пароль</label>
+                    <input type="password" id="login-password" class="form-input" required>
+                    <div class="error-message" id="login-password-error"></div>
+                </div>
+                <button type="submit" class="btn btn--primary btn--block">Войти</button>
+                <div class="form-footer">
+                    <p>Нет аккаунта? <a href="#" id="switch-to-register">Зарегистрироваться</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модалка регистрации -->
+    <div class="modal" id="register-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-register">&times;</button>
+            <h2 class="modal__title">Регистрация</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="reg-fio" class="form-label">ФИО</label>
+                    <input type="text" id="reg-fio" class="form-input" required>
+                    <div class="error-message" id="reg-fio-error">Только кириллица, дефисы и пробелы</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-username" class="form-label">Логин</label>
+                    <input type="text" id="reg-username" class="form-input" required>
+                    <div class="error-message" id="reg-username-error">Только латинские буквы</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email" class="form-label">Email</label>
+                    <input type="email" id="reg-email" class="form-input" required>
+                    <div class="error-message" id="reg-email-error">Некорректный email</div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password" class="form-label">Пароль</label>
+                    <input type="password" id="reg-password" class="form-input" required>
+                    <div class="error-message" id="reg-password-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password-confirm" class="form-label">Повторите пароль</label>
+                    <input type="password" id="reg-password-confirm" class="form-input" required>
+                    <div class="error-message" id="reg-password-confirm-error">Пароли не совпадают</div>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" id="reg-agreement" class="form-checkbox" required>
+                    <label for="reg-agreement" class="form-check-label">Согласен на обработку персональных данных</label>
+                    <div class="error-message" id="reg-agreement-error">Необходимо согласие</div>
+                </div>
+                <button type="submit" class="btn btn--primary btn--block">Зарегистрироваться</button>
+                <div class="form-footer">
+                    <p>Уже есть аккаунт? <a href="#" id="switch-to-login">Войти</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модалка корзины -->
+    <div class="modal" id="cart-modal">
+        <div class="modal__content">
+            <button class="modal__close" id="close-cart">&times;</button>
+            <h2 class="modal__title">Корзина</h2>
+            <div class="cart-items" id="cart-items">
+                <!-- Товары будут добавляться динамически -->
+                <p class="cart-empty" id="cart-empty">Корзина пуста</p>
+            </div>
+            <div class="cart-total">
+                <span>Итого:</span>
+                <span id="cart-total-price">0 ₽</span>
+            </div>
+            <button class="btn btn--primary btn--block" id="checkout-btn">Оформить заказ</button>
+        </div>
+    </div>
+
+    <!-- Подключение скриптов -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/delivery.js"></script>
+</body>
+</html>
