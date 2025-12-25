@@ -1,4 +1,5 @@
 // ===== ОСНОВНОЙ КОД =====
+let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
 document.addEventListener('DOMContentLoaded', function() {
     // ===== ПЕРЕМЕННЫЕ И СОСТОЯНИЕ =====
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
@@ -5945,3 +5946,4 @@ ${itemsList}
         }
     }
 });
+
